@@ -8,27 +8,14 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Comments {
-@Id
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-private int comId;
-@ManyToOne
-private String Description;
-
-
-public int getComId() {
-	return comId;
-}
-public void setComId(int comId) {
-	this.comId = comId;
-}
-public String getDescription() {
-	return Description;
-}
-public void setDescription(String description) {
-	Description = description;
-}
-
-
+	private int comId;
+	private String Description;
+	@ManyToOne
+	private Users commentator;
+	private String referenceName;
+	private String referenceId;
 
 
 }
