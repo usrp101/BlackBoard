@@ -3,6 +3,7 @@ package com.example.demo.Domain;
 import java.io.Serializable;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,10 +19,11 @@ public class Announcement implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String title;
+	@Column(updatable = false)
 	private String uuid = UUID.randomUUID().toString();
 	private String description;
 	private Boolean isGeneral;
-	private String commentatorId;
+	private String userReferenceId;
 	@JsonIgnore
 	@ManyToOne
 	private Course course;
@@ -52,13 +54,6 @@ public class Announcement implements Serializable {
 		this.isGeneral = isGeneral;
 	}
 
-	public String getCommentatorId() {
-		return commentatorId;
-	}
-
-	public void setCommentatorId(String commentatorId) {
-		this.commentatorId = commentatorId;
-	}
 
 	public Course getCourse() {
 		return course;
@@ -82,6 +77,14 @@ public class Announcement implements Serializable {
 
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
+	}
+
+	public String getUserReferenceId() {
+		return userReferenceId;
+	}
+
+	public void setUserReferenceId(String userReferenceId) {
+		this.userReferenceId = userReferenceId;
 	}
 
 }
