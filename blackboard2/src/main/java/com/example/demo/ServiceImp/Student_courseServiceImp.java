@@ -17,7 +17,7 @@ public class Student_courseServiceImp implements Student_courseService {
 	public Student_courseDao studentCourseDao;
 
 	@Override
-	public Student_course findone(Integer stcsId) {
+	public Student_course findone(long stcsId) {
 		Student_course student_course = null;
 		Optional<Student_course> opstudentCourse =studentCourseDao.findById(stcsId); 
 		if(opstudentCourse.isPresent()) {

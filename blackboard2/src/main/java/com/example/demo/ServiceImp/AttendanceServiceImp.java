@@ -18,7 +18,7 @@ public class AttendanceServiceImp implements AttendanceService {
 	public AttendanceDao attendanceDao;
 
 	@Override
-	public Attendance findone(Integer atId) {
+	public Attendance findone(long atId) {
 		Attendance attendance = null;
 		Optional<Attendance> opattendance =attendanceDao.findById(atId); 
 		if(opattendance.isPresent()) {
