@@ -5,10 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
-public class Annoncement {
+public class Announcement {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int anId;
