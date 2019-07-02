@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.Dao.AttendanceDao;
 import com.example.demo.Domain.Attendance;
-import com.example.demo.Domain.Comments;
 import com.example.demo.Service.AttendanceService;
 
 public class AttendanceServiceImp implements AttendanceService {
