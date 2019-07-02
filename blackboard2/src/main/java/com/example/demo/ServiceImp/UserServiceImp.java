@@ -18,7 +18,7 @@ public class UserServiceImp implements UserService {
 	
 
 	@Override
-	public Users findone(String id) {
+	public Users findone(long id) {
 		Users users = null;
 		Optional<Users> opusers =userDao.findById(id); 
 		if(opusers.isPresent()) {

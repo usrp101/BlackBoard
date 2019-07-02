@@ -6,7 +6,7 @@ import com.example.demo.Domain.Course;
 
 public interface CourseService {
 	
-		Course findone(String courseCode);
+		Course findone(long courseCode);
 		Course  create(Course course);
 		List<Course> findAll();
 

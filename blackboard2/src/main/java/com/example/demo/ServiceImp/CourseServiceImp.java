@@ -18,7 +18,7 @@ public class CourseServiceImp implements CourseService{
 	@Autowired
 	public CourseDao courseDao;
 	@Override
-	public Course findone(String courseCode) {
+	public Course findone(long courseCode) {
 		Course course = null;
 		Optional<Course> opcourse =courseDao.findById(courseCode); 
 		if(opcourse.isPresent()) {
