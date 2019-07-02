@@ -11,4 +11,5 @@ public interface CommentService {
     public abstract Comment update(Comment a);
     public abstract void delete(Comment a);
     public abstract Optional<Comment> findByid(long id);
+    public abstract List<Comment> findByAnnouncement(long id);
 }

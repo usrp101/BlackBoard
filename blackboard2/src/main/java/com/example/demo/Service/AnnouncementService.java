@@ -9,4 +9,5 @@ public interface AnnouncementService {
     public abstract Announcement update(Announcement a);
     public  void delete(Announcement a);
     public abstract Optional<Announcement> findByid(long id);
+    public abstract Optional<Announcement> findByUuid(String uuid);
 }

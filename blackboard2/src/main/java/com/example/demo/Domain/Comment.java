@@ -3,6 +3,7 @@ package com.example.demo.Domain;
 import java.io.Serializable;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,16 +16,34 @@ public class Comment implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
     private String description;
+	@Column(updatable = false)
     private String uuid = UUID.randomUUID().toString();
     private String referenceName;
-    private String referenceId;
+    private long referenceId;
     private String commentatorId;
+    private String commentatorName;
 
     /**
      * @return String return the description
      */
     public String getDescription() {
         return description;
+    }
+
+    public String getCommentatorName() {
+        return commentatorName;
+    }
+
+    public void setCommentatorName(String commentatorName) {
+        this.commentatorName = commentatorName;
+    }
+
+    public long getReferenceId() {
+        return referenceId;
+    }
+
+    public void setReferenceId(long referenceId) {
+        this.referenceId = referenceId;
     }
 
     public String getUuid() {
@@ -54,20 +73,6 @@ public class Comment implements Serializable {
      */
     public void setReferenceName(String referenceName) {
         this.referenceName = referenceName;
-    }
-
-    /**
-     * @return String return the referenceId
-     */
-    public String getReferenceId() {
-        return referenceId;
-    }
-
-    /**
-     * @param referenceId the referenceId to set
-     */
-    public void setReferenceId(String referenceId) {
-        this.referenceId = referenceId;
     }
 
     /**

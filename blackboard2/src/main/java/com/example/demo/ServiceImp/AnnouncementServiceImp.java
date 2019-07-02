@@ -36,4 +36,9 @@ public class AnnouncementServiceImp implements AnnouncementService {
         return dao.findById(id);
     }
 
+    @Override
+    public Optional<Announcement> findByUuid(String uuid) {
+        return dao.findByUuid(uuid);
+    }
+
 }
