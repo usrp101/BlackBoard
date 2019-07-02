@@ -5,7 +5,6 @@ import java.util.Optional;
 import com.example.demo.Domain.Announcement;
 
 public interface AnnouncementService {
-    
     public abstract Announcement create(Announcement a);
     public abstract Announcement update(Announcement a);
     public  void delete(Announcement a);
