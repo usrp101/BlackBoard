@@ -26,9 +26,15 @@ public class Student_course {
 	private Student student;
 
 	@ManyToOne
-	private Course courseId;
-	
+	private Course course;
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 
     /**
      * @return long return the Id
@@ -84,20 +90,6 @@ public class Student_course {
      */
     public void setStudent(Student student) {
         this.student = student;
-    }
-
-    /**
-     * @return Course return the courseId
-     */
-    public Course getCourseId() {
-        return courseId;
-    }
-
-    /**
-     * @param courseId the courseId to set
-     */
-    public void setCourseId(Course courseId) {
-        this.courseId = courseId;
     }
 
 }

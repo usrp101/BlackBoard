@@ -39,5 +39,19 @@ public class AttendanceServiceImp implements AttendanceService {
 		return list;
 	}
 
-	
+	@Override
+	public List<Attendance> findByCourse(long id) {
+		List<Attendance> list = new ArrayList<Attendance>();
+		list =   (List<Attendance>) attendanceDao.findByStudentCourseCourseId(id);
+		return list;
+	}
+
+	@Override
+	public List<Attendance> findByStudent(long id) {
+		List<Attendance> list = new ArrayList<Attendance>();
+		list =   (List<Attendance>) attendanceDao.findByStudentCourseStudentId(id);
+		return list;
+	}
+
+
 }
