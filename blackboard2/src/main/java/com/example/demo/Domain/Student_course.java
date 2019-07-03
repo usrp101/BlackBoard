@@ -22,13 +22,19 @@ public class Student_course {
 	private String uuid=UUID.randomUUID().toString();
 
 	private double marks;
-	// @ManyToOne
-	// private Student student;
+	 @ManyToOne
+	 private Student student;
 
 	@ManyToOne
-	private Course courseId;
-	
+	private Course course;
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 
     /**
      * @return long return the Id
@@ -75,29 +81,15 @@ public class Student_course {
     /**
      * @return Student return the student
      */
-    // public Student getStudent() {
-    //     return student;
-    // }
+     public Student getStudent() {
+         return student;
+     }
 
-    // /**
-    //  * @param student the student to set
-    //  */
-    // public void setStudent(Student student) {
-    //     this.student = student;
-    // }
-
-    /**
-     * @return Course return the courseId
-     */
-    public Course getCourseId() {
-        return courseId;
-    }
-
-    /**
-     * @param courseId the courseId to set
-     */
-    public void setCourseId(Course courseId) {
-        this.courseId = courseId;
-    }
+     /**
+      * @param student the student to set
+      */
+     public void setStudent(Student student) {
+         this.student = student;
+     }
 
 }

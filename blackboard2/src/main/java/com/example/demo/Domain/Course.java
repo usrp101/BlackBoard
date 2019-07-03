@@ -24,9 +24,17 @@ public class Course {
 	   private String uuid=UUID.randomUUID().toString();
 	   private String courseName;
 	   private String courseGroup;
+
 	   @ManyToOne
 	   private Users teacher;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     /**
      * @return String return the courseCode

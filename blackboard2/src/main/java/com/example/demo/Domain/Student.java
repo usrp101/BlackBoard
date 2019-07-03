@@ -3,10 +3,12 @@ package com.example.demo.Domain;
 import java.util.UUID;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Entity
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,8 +23,10 @@ public class Student {
     private String role;
     private String passcode;
 
-    
 
+    public String getStudentId() {
+        return studentId;
+    }
 
     /**
      * @return String return the id
