@@ -5,6 +5,7 @@ import com.example.demo.Domain.Course;
 import com.example.demo.Domain.Users;
 import com.example.demo.Service.CourseService;
 import com.example.demo.Service.UserService;
+import com.example.demo.util.Messages;
 import com.example.demo.util.ResponseBean;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,25 +39,25 @@ public class CourseController {
                    course.setCourseName(c.courseName);
                    course.setTeacher(u);
                    Course nc=courseService.create(course);
-                       responseBean.setCode("");
+                       responseBean.setCode(Messages.SUCCESS_CODE);
                        responseBean.setDescription("");
                        responseBean.setObject(nc);
                }else{
-                   responseBean.setCode("");
-                   responseBean.setDescription("");
+                   responseBean.setCode(Messages.ERROR_CODE);
+                   responseBean.setDescription(Messages.not_found);
                    responseBean.setObject(null);
                }
 
             }else{
-                responseBean.setCode("");
-                responseBean.setDescription("");
+                responseBean.setCode(Messages.ERROR_CODE);
+                responseBean.setDescription(Messages.not_found);
                 responseBean.setObject(null);
             }
 
         } catch (Exception e) {
             //TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
@@ -83,19 +84,19 @@ public class CourseController {
                 upc.setCourseCode(c.courseCode);
                 upc.setId(course.getId());
                 Course nu = courseService.create(upc);
-                responseBean.setCode("");
+                responseBean.setCode(Messages.SUCCESS_CODE);
                 responseBean.setDescription("");
                 responseBean.setObject(upc);
             } else {
-                responseBean.setCode("");
-                responseBean.setDescription("");
+                responseBean.setCode(Messages.ERROR_CODE);
+                responseBean.setDescription(Messages.not_found);
                 responseBean.setObject(null);
             }
 
         } catch (Exception e) {
             // TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
@@ -111,14 +112,14 @@ public class CourseController {
         // TODO: process POST request
         try {
 
-            responseBean.setCode("");
-            responseBean.setDescription("");
+            responseBean.setCode(Messages.SUCCESS_CODE);
+            responseBean.setDescription("FOUND");
             responseBean.setObject(courseService.findByCourseCode(code));
 
         } catch (Exception e) {
             // TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
@@ -137,14 +138,14 @@ public class CourseController {
         // TODO: process POST request
         try {
 
-            responseBean.setCode("");
+            responseBean.setCode(Messages.SUCCESS_CODE);
             responseBean.setDescription("");
             responseBean.setObject(courseService.findByUuid(uuid));
 
         } catch (Exception e) {
             // TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
@@ -161,14 +162,14 @@ public class CourseController {
         // TODO: process POST request
         try {
 
-            responseBean.setCode("");
+            responseBean.setCode(Messages.SUCCESS_CODE);
             responseBean.setDescription("");
             responseBean.setObject(courseService.findAll());
 
         } catch (Exception e) {
             // TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
@@ -183,7 +184,7 @@ public class CourseController {
             Users u=userService.findByUuid(uuid);
             if(u!=null){
 
-                responseBean.setCode("");
+                responseBean.setCode(Messages.SUCCESS_CODE);
                 responseBean.setDescription("");
                 responseBean.setObject(courseService.findByTeacherId(u.getId()));
 
@@ -193,8 +194,8 @@ public class CourseController {
 
         } catch (Exception e) {
             // TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
