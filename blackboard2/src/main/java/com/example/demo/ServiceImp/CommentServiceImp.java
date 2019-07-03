@@ -1,41 +1,43 @@
 package com.example.demo.ServiceImp;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.example.demo.Dao.CommentDao;
-import com.example.demo.Domain.Comments;
+import com.example.demo.Domain.Comment;
 import com.example.demo.Service.CommentService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class CommentServiceImp implements CommentService {
-	
-	@Autowired
-	public CommentDao commentDao;
+    @Autowired
+    private CommentDao dao;
 
-	@Override
-	public Comments findone(Integer comId) {
-		Comments comments = null;
-		Optional<Comments> opcomments =commentDao.findById(comId); 
-		if(opcomments.isPresent()) {
-			comments = opcomments.get();
-		}
-		return (comments != null) ? comments : null;
-	}
+    @Override
+    public Comment create(Comment a) {
+        return dao.save(a);
+    }
 
-	@Override
-	public Comments create(Comments comments) {
-		commentDao.save(comments);
-		return (comments != null) ? comments : null;
-	}
+    @Override
+    public Comment update(Comment a) {
+        return dao.save(a);
+    }
 
-	@Override
-	public List<Comments> findAll() {
-		List<Comments> list = new ArrayList<Comments>();
-		list =   (List<Comments>) commentDao.findAll();
-		return list;
-	}
+    @Override
+    public void delete(Comment a) {
+        dao.delete(a);
+    }
+
+    @Override
+    public Optional<Comment> findByid(long id) {
+        return dao.findById(id);
+    }
+
+    @Override
+    public List<Comment> findByAnnouncement(long id) {
+        return dao.findByReferenceNameAndReferenceId("comment",id);
+    }
 
 }

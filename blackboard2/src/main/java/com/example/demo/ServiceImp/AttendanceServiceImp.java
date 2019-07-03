@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.Dao.AttendanceDao;
 import com.example.demo.Domain.Attendance;
-import com.example.demo.Domain.Comments;
 import com.example.demo.Service.AttendanceService;
 
 public class AttendanceServiceImp implements AttendanceService {
@@ -18,7 +17,7 @@ public class AttendanceServiceImp implements AttendanceService {
 	public AttendanceDao attendanceDao;
 
 	@Override
-	public Attendance findone(Integer atId) {
+	public Attendance findone(long atId) {
 		Attendance attendance = null;
 		Optional<Attendance> opattendance =attendanceDao.findById(atId); 
 		if(opattendance.isPresent()) {
@@ -40,5 +39,19 @@ public class AttendanceServiceImp implements AttendanceService {
 		return list;
 	}
 
-	
+	@Override
+	public List<Attendance> findByCourse(long id) {
+		List<Attendance> list = new ArrayList<Attendance>();
+		list =   (List<Attendance>) attendanceDao.findByStudentCourseCourseId(id);
+		return list;
+	}
+
+	@Override
+	public List<Attendance> findByStudent(long id) {
+		List<Attendance> list = new ArrayList<Attendance>();
+		list =   (List<Attendance>) attendanceDao.findByStudentCourseStudentId(id);
+		return list;
+	}
+
+
 }
