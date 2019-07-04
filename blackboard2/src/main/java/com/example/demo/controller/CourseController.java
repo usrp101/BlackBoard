@@ -30,14 +30,14 @@ public class CourseController {
         //TODO: process POST request
         try {
             Users u=userService.findByUuid(c.teacher);
-            if(u!=null){
+            if(u==null){
                 Course course=new Course();
                 Course courseCheck=courseService.findByCourseCode(c.getCourseCode());
                if(courseCheck==null){
                    course.setCourseCode(c.courseCode);
                    course.setCourseGroup(c.courseGroup);
                    course.setCourseName(c.courseName);
-                   course.setTeacher(u);
+                   course.setTeacher(null);
                    Course nc=courseService.create(course);
                        responseBean.setCode(Messages.SUCCESS_CODE);
                        responseBean.setDescription("");
