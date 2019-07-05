@@ -23,15 +23,31 @@ public class Announcement implements Serializable {
 	private String uuid = UUID.randomUUID().toString();
 	private String description;
 	private Boolean isGeneral;
+	private Boolean isCourseMaterial;
+	private CourseMaterialType courseMaterialType;
 	private String userReferenceId;
 	@JsonIgnore
 	@ManyToOne
 	private Course course;
 
-
-
 	public String getTitle() {
 		return title;
+	}
+
+	public CourseMaterialType getCourseMaterialType() {
+		return courseMaterialType;
+	}
+
+	public void setCourseMaterialType(CourseMaterialType courseMaterialType) {
+		this.courseMaterialType = courseMaterialType;
+	}
+
+	public Boolean getIsCourseMaterial() {
+		return isCourseMaterial;
+	}
+
+	public void setIsCourseMaterial(Boolean isCourseMaterial) {
+		this.isCourseMaterial = isCourseMaterial;
 	}
 
 	public void setTitle(String title) {
