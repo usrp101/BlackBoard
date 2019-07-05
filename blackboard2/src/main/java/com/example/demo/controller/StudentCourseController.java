@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("studentcourses")
+@RequestMapping("/studentcourses")
 public class StudentCourseController {
 
     @Autowired
@@ -30,34 +30,34 @@ public class StudentCourseController {
     private StudentService studentService;
 
     @RequestMapping(value = "/save/course/{uuid}", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> save(@PathVariable("uuid")String uuid, @RequestBody List<StudentCourse> c) {
+    public ResponseEntity<Object> save(@PathVariable("uuid")String uuid, @RequestBody List<StudentSubmit> c) {
         ResponseBean responseBean = new ResponseBean();
         //TODO: process POST request
         try {
             Course cou=courseService.findByUuid(uuid);
             if(cou!=null){
-                for (StudentCourse stc:c) {
-                    Student st=studentService.findByStudentId(stc.studentCode);
+                for (StudentSubmit stc:c) {
+                    Student st=studentService.findByStudentId(stc.id);
                     Student_course studCourse=new Student_course();
                     if(st!=null){
                         studCourse.setCourse(cou);
                         studCourse.setStudent(st);
                     }else{
                        Student nst=new Student();
-                       nst.setFirstname(stc.firstName);
-                       nst.setLastname(stc.lastName);
-                       nst.setStudentId(stc.studentCode);
+                       nst.setFirstname(stc.names);
+                       nst.setLastname(" "); 
+                       nst.setStudentId(stc.id);
                        studentService.create(nst);
                        Student student=studentService.findByStudentId(nst.getStudentId());
                        studCourse.setStudent(student);
                        studCourse.setCourse(cou);
                     }
-                    studCourse.setMarks(stc.marks);
+                    // studCourse.setMarks(stc.marks);
                     studentCourseService.create(studCourse);
 
                 }
                 responseBean.setCode(Messages.SUCCESS_CODE);
-                responseBean.setDescription(Messages.save);
+                responseBean.setDescription("STUDENTS ADDED INTO "+cou.getCourseName()+" SUCCESSFULLY");
                 responseBean.setObject(c);
             }else{
                 responseBean.setCode(Messages.ERROR_CODE);
@@ -188,6 +188,27 @@ public class StudentCourseController {
 
 
 
+    private static class StudentSubmit{
+        private String names;
+        private String id;
+
+        public String getId() {
+            return id;
+        }
+
+        public String getNames() {
+            return names;
+        }
+
+        public void setNames(String names) {
+            this.names = names;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+    }
     public static class StudentCourse{
         private String studentCode;
         private String firstName;
