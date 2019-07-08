@@ -10,7 +10,9 @@ import com.example.demo.Dao.Student_courseDao;
 import com.example.demo.Domain.Attendance;
 import com.example.demo.Domain.Student_course;
 import com.example.demo.Service.Student_courseService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class Student_courseServiceImp implements Student_courseService {
 	
 	@Autowired
@@ -37,6 +39,23 @@ public class Student_courseServiceImp implements Student_courseService {
 		List<Student_course> list = new ArrayList<Student_course>();
 		list =   (List<Student_course>) studentCourseDao.findAll();
 		return list;
+	}
+
+	@Override
+	public List<Student_course> findByCourseId(long id) {
+		List<Student_course> list = new ArrayList<Student_course>();
+		list =   (List<Student_course>) studentCourseDao.findByCourseId(id);
+		return list;
+	}
+
+	@Override
+	public Student_course findByUuid(String uuid) {
+		Student_course student_course = null;
+		Optional<Student_course> opstudentCourse =Optional.ofNullable(studentCourseDao.findByUuid(uuid));
+		if(opstudentCourse.isPresent()) {
+			student_course = opstudentCourse.get();
+		}
+		return (student_course != null) ? student_course : null;
 	}
 
 }

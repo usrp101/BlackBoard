@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.Dao.AnnouncementDao;
 import com.example.demo.Domain.Announcement;
+import com.example.demo.Domain.CourseMaterial;
+import com.example.demo.Domain.CourseMaterialType;
 import com.example.demo.Service.AnnouncementService;
 
 @Service
@@ -28,7 +30,7 @@ public class AnnouncementServiceImp implements AnnouncementService {
 
     @Override
     public void delete(Announcement a) {
-         dao.delete(a);
+        dao.delete(a);
     }
 
     @Override
@@ -39,6 +41,17 @@ public class AnnouncementServiceImp implements AnnouncementService {
     @Override
     public Optional<Announcement> findByUuid(String uuid) {
         return dao.findByUuid(uuid);
+    }
+
+    @Override
+    public CourseMaterialType getType(String type) {
+        CourseMaterialType[] vals = CourseMaterialType.values();
+        for (CourseMaterialType cm : vals) {
+            if(cm.toString().equalsIgnoreCase(type)){
+                return cm;
+            }
+        }
+        return null;
     }
 
 }

@@ -6,22 +6,23 @@ import com.example.demo.Domain.Student_course;
 import com.example.demo.Service.CourseService;
 import com.example.demo.Service.StudentService;
 import com.example.demo.Service.Student_courseService;
+import com.example.demo.util.Messages;
 import com.example.demo.util.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/studentcourses")
 public class StudentCourseController {
 
     @Autowired
     private CourseService courseService;
+
     @Autowired
     private Student_courseService studentCourseService;
 
@@ -29,46 +30,46 @@ public class StudentCourseController {
     private StudentService studentService;
 
     @RequestMapping(value = "/save/course/{uuid}", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> save(@PathVariable("uuid")String uuid, @RequestBody List<StudentCourse> c) {
+    public ResponseEntity<Object> save(@PathVariable("uuid")String uuid, @RequestBody List<StudentSubmit> c) {
         ResponseBean responseBean = new ResponseBean();
         //TODO: process POST request
         try {
             Course cou=courseService.findByUuid(uuid);
             if(cou!=null){
-                for (StudentCourse stc:c) {
-                    Student st=studentService.findByStudentId(stc.studentCode);
+                for (StudentSubmit stc:c) {
+                    Student st=studentService.findByStudentId(stc.id);
                     Student_course studCourse=new Student_course();
                     if(st!=null){
                         studCourse.setCourse(cou);
                         studCourse.setStudent(st);
                     }else{
                        Student nst=new Student();
-                       nst.setFirstname(stc.firstName);
-                       nst.setLastname(stc.lastName);
-                       nst.setStudentId(stc.studentCode);
+                       nst.setFirstname(stc.names);
+                       nst.setLastname(" "); 
+                       nst.setStudentId(stc.id);
                        studentService.create(nst);
                        Student student=studentService.findByStudentId(nst.getStudentId());
                        studCourse.setStudent(student);
                        studCourse.setCourse(cou);
                     }
-                    studCourse.setMarks(stc.marks);
+                    // studCourse.setMarks(stc.marks);
                     studentCourseService.create(studCourse);
 
                 }
-                responseBean.setCode("");
-                responseBean.setDescription("");
+                responseBean.setCode(Messages.SUCCESS_CODE);
+                responseBean.setDescription("STUDENTS ADDED INTO "+cou.getCourseName()+" SUCCESSFULLY");
                 responseBean.setObject(c);
             }else{
-                responseBean.setCode("");
-                responseBean.setDescription("");
+                responseBean.setCode(Messages.ERROR_CODE);
+                responseBean.setDescription(Messages.error);
                 responseBean.setObject(null);
             }
 
 
         } catch (Exception e) {
             //TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
@@ -90,19 +91,19 @@ public class StudentCourseController {
             if (c != null) {
                 sCourse.setMarks(c.marks);
                 Student_course nu = studentCourseService.create(sCourse);
-                responseBean.setCode("");
-                responseBean.setDescription("");
+                responseBean.setCode(Messages.SUCCESS_CODE);
+                responseBean.setDescription(Messages.update);
                 responseBean.setObject(sCourse);
             } else {
-                responseBean.setCode("");
-                responseBean.setDescription("");
+                responseBean.setCode(Messages.ERROR_CODE);
+                responseBean.setDescription(Messages.update);
                 responseBean.setObject(null);
             }
 
         } catch (Exception e) {
             // TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
@@ -120,14 +121,14 @@ public class StudentCourseController {
         // TODO: process POST request
         try {
 
-            responseBean.setCode("");
+            responseBean.setCode(Messages.SUCCESS_CODE);
             responseBean.setDescription("");
             responseBean.setObject(studentCourseService.findByUuid(uuid));
 
         } catch (Exception e) {
             // TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
@@ -144,14 +145,14 @@ public class StudentCourseController {
         // TODO: process POST request
         try {
 
-            responseBean.setCode("");
+            responseBean.setCode(Messages.SUCCESS_CODE);
             responseBean.setDescription("");
             responseBean.setObject(studentCourseService.findAll());
 
         } catch (Exception e) {
             // TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
@@ -166,20 +167,20 @@ public class StudentCourseController {
             Course c=courseService.findByUuid(uuid);
             if(c!=null){
 
-                responseBean.setCode("");
+                responseBean.setCode(Messages.SUCCESS_CODE);
                 responseBean.setDescription("");
                 responseBean.setObject(studentCourseService.findByCourseId(c.getId()));
 
             }else{
-                responseBean.setCode("");
-                responseBean.setDescription("");
+                responseBean.setCode(Messages.NOT_FOUND);
+                responseBean.setDescription(Messages.not_found);
                 responseBean.setObject(null);
             }
 
         } catch (Exception e) {
             // TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
@@ -187,6 +188,27 @@ public class StudentCourseController {
 
 
 
+    private static class StudentSubmit{
+        private String names;
+        private String id;
+
+        public String getId() {
+            return id;
+        }
+
+        public String getNames() {
+            return names;
+        }
+
+        public void setNames(String names) {
+            this.names = names;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+    }
     public static class StudentCourse{
         private String studentCode;
         private String firstName;

@@ -18,140 +18,140 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UsersController {
 
-    @Autowired
-    private UserService userService;
-    
-    @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> save(@RequestBody Users user) {
-        ResponseBean responseBean = new ResponseBean();
-        //TODO: process POST request
-        try {
-            Users u=userService.findByUserId(user.getUserId());
-            if(u==null){
-                Users nu=userService.create(user);
-                responseBean.setCode("");
-                responseBean.setDescription("");
-                responseBean.setObject(nu);
-            }else{
-                responseBean.setCode("");
-                responseBean.setDescription("");
-                responseBean.setObject(null);
-            }
-
-        } catch (Exception e) {
-            //TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
-            responseBean.setObject(null);
-        }
-        return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
-    }
-
-      /**
-       * find By uuid
-       * @param uuid
-       * @param user
-       * @return
-       */
-      @RequestMapping(value = "/update/{uuid}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> update(@PathVariable String uuid,@RequestBody Users user) {
-        ResponseBean responseBean = new ResponseBean();
-        // TODO: process POST request
-        try {
-            Users u = userService.findByUuid(uuid);
-            if (u != null) {
-                user.setId(u.getId());
-                Users nu = userService.create(user);
-                responseBean.setCode("");
-                responseBean.setDescription("");
-                responseBean.setObject(nu);
-            } else {
-                responseBean.setCode("");
-                responseBean.setDescription("");
-                responseBean.setObject(null);
-            }
-
-        } catch (Exception e) {
-            // TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
-            responseBean.setObject(null);
-        }
-        return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
-    }
-     /**
-      * Find BY UseId
-      * @param id
-      * @return
-      */
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> findByUserId(@PathVariable("id") String id) {
-        ResponseBean responseBean = new ResponseBean();
-        // TODO: process POST request
-        try {
-         
-                responseBean.setCode("");
-                responseBean.setDescription("");
-                responseBean.setObject(userService.findByUserId(id));
-
-        } catch (Exception e) {
-            // TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
-            responseBean.setObject(null);
-        }
-        return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
-    }
-
-
-    /**
-     * Find BY UseId
-     * 
-     * @param uuid
-     * @return
-     */
-    @RequestMapping(value = "/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> findByUserUuid(@PathVariable("uuid") String uuid) {
-        ResponseBean responseBean = new ResponseBean();
-        // TODO: process POST request
-        try {
-
-            responseBean.setCode("");
-            responseBean.setDescription("");
-            responseBean.setObject(userService.findByUuid(uuid));
-
-        } catch (Exception e) {
-            // TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
-            responseBean.setObject(null);
-        }
-        return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
-    }
-
-
-    /**
-     * Find all 
-     * @return
-     */
-      @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> findAll() {
-        ResponseBean responseBean = new ResponseBean();
-        // TODO: process POST request
-        try {
-
-            responseBean.setCode("");
-            responseBean.setDescription("");
-            responseBean.setObject(userService.findAll());
-
-        } catch (Exception e) {
-            // TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
-            responseBean.setObject(null);
-        }
-        return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
-    } 
+//    @Autowired
+//    private UserService userService;
+//
+//    @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Object> save(@RequestBody Users user) {
+//        ResponseBean responseBean = new ResponseBean();
+//        //TODO: process POST request
+//        try {
+//            Users u=userService.findByUserId(user.getUserId());
+//            if(u==null){
+//                Users nu=userService.create(user);
+//                responseBean.setCode("");
+//                responseBean.setDescription("");
+//                responseBean.setObject(nu);
+//            }else{
+//                responseBean.setCode("");
+//                responseBean.setDescription("");
+//                responseBean.setObject(null);
+//            }
+//
+//        } catch (Exception e) {
+//            //TODO: handle exception
+//            responseBean.setCode("");
+//            responseBean.setDescription("");
+//            responseBean.setObject(null);
+//        }
+//        return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
+//    }
+//
+//      /**
+//       * find By uuid
+//       * @param uuid
+//       * @param user
+//       * @return
+//       */
+//      @RequestMapping(value = "/update/{uuid}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Object> update(@PathVariable String uuid,@RequestBody Users user) {
+//        ResponseBean responseBean = new ResponseBean();
+//        // TODO: process POST request
+//        try {
+//            Users u = userService.findByUuid(uuid);
+//            if (u != null) {
+//                user.setId(u.getId());
+//                Users nu = userService.create(user);
+//                responseBean.setCode("");
+//                responseBean.setDescription("");
+//                responseBean.setObject(nu);
+//            } else {
+//                responseBean.setCode("");
+//                responseBean.setDescription("");
+//                responseBean.setObject(null);
+//            }
+//
+//        } catch (Exception e) {
+//            // TODO: handle exception
+//            responseBean.setCode("");
+//            responseBean.setDescription("");
+//            responseBean.setObject(null);
+//        }
+//        return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
+//    }
+//     /**
+//      * Find BY UseId
+//      * @param id
+//      * @return
+//      */
+//    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Object> findByUserId(@PathVariable("id") String id) {
+//        ResponseBean responseBean = new ResponseBean();
+//        // TODO: process POST request
+//        try {
+//
+//                responseBean.setCode("");
+//                responseBean.setDescription("");
+//                responseBean.setObject(userService.findByUserId(id));
+//
+//        } catch (Exception e) {
+//            // TODO: handle exception
+//            responseBean.setCode("");
+//            responseBean.setDescription("");
+//            responseBean.setObject(null);
+//        }
+//        return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
+//    }
+//
+//
+//    /**
+//     * Find BY UseId
+//     *
+//     * @param uuid
+//     * @return
+//     */
+//    @RequestMapping(value = "/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Object> findByUserUuid(@PathVariable("uuid") String uuid) {
+//        ResponseBean responseBean = new ResponseBean();
+//        // TODO: process POST request
+//        try {
+//
+//            responseBean.setCode("");
+//            responseBean.setDescription("");
+//            responseBean.setObject(userService.findByUuid(uuid));
+//
+//        } catch (Exception e) {
+//            // TODO: handle exception
+//            responseBean.setCode("");
+//            responseBean.setDescription("");
+//            responseBean.setObject(null);
+//        }
+//        return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
+//    }
+//
+//
+//    /**
+//     * Find all
+//     * @return
+//     */
+//      @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Object> findAll() {
+//        ResponseBean responseBean = new ResponseBean();
+//        // TODO: process POST request
+//        try {
+//
+//            responseBean.setCode("");
+//            responseBean.setDescription("");
+//            responseBean.setObject(userService.findAll());
+//
+//        } catch (Exception e) {
+//            // TODO: handle exception
+//            responseBean.setCode("");
+//            responseBean.setDescription("");
+//            responseBean.setObject(null);
+//        }
+//        return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
+//    }
 
     public static class InnerUser{
         private String firstname;

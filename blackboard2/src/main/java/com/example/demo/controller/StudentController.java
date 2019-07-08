@@ -2,12 +2,14 @@ package com.example.demo.controller;
 
 import com.example.demo.Domain.Student;
 import com.example.demo.Service.StudentService;
+import com.example.demo.util.Messages;
 import com.example.demo.util.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/students")
@@ -24,19 +26,19 @@ public class StudentController {
             Student u=studentService.findByStudentId(st.getStudentId());
             if(u==null){
                 Student nu=studentService.create(st);
-                responseBean.setCode("");
-                responseBean.setDescription("");
+                responseBean.setCode(Messages.SUCCESS_CODE);
+                responseBean.setDescription(Messages.save);
                 responseBean.setObject(nu);
             }else{
-                responseBean.setCode("");
-                responseBean.setDescription("");
+                responseBean.setCode(Messages.ERROR_CODE);
+                responseBean.setDescription("Student of this id is already registered");
                 responseBean.setObject(null);
             }
 
         } catch (Exception e) {
             //TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
@@ -57,19 +59,19 @@ public class StudentController {
             if (u != null) {
                 u.setId(u.getId());
                 Student nu = studentService.create(st);
-                responseBean.setCode("");
-                responseBean.setDescription("");
+                responseBean.setCode(Messages.SUCCESS_CODE);
+                responseBean.setDescription(Messages.update);
                 responseBean.setObject(nu);
             } else {
-                responseBean.setCode("");
-                responseBean.setDescription("");
+                responseBean.setCode(Messages.ERROR_CODE);
+                responseBean.setDescription(Messages.not_found);
                 responseBean.setObject(null);
             }
 
         } catch (Exception e) {
             // TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
@@ -85,14 +87,14 @@ public class StudentController {
         // TODO: process POST request
         try {
 
-            responseBean.setCode("");
+            responseBean.setCode(Messages.SUCCESS_CODE);
             responseBean.setDescription("");
             responseBean.setObject(studentService.findByStudentId(id));
 
         } catch (Exception e) {
             // TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
@@ -111,14 +113,14 @@ public class StudentController {
         // TODO: process POST request
         try {
 
-            responseBean.setCode("");
+            responseBean.setCode(Messages.SUCCESS_CODE);
             responseBean.setDescription("");
             responseBean.setObject(studentService.findByUuid(uuid));
 
         } catch (Exception e) {
             // TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
@@ -135,14 +137,14 @@ public class StudentController {
         // TODO: process POST request
         try {
 
-            responseBean.setCode("");
+            responseBean.setCode(Messages.SUCCESS_CODE);
             responseBean.setDescription("");
             responseBean.setObject(studentService.findAll());
 
         } catch (Exception e) {
             // TODO: handle exception
-            responseBean.setCode("");
-            responseBean.setDescription("");
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);

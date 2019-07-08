@@ -9,9 +9,12 @@ import java.util.Optional;
 import com.example.demo.Domain.Announcement;
 import com.example.demo.Domain.AnnouncementDocument;
 import com.example.demo.Domain.Comment;
+import com.example.demo.Domain.Course;
+import com.example.demo.Domain.CourseMaterialType;
 import com.example.demo.Service.AnnouncementDocumentService;
 import com.example.demo.Service.AnnouncementService;
 import com.example.demo.Service.CommentService;
+import com.example.demo.Service.CourseService;
 import com.example.demo.util.Messages;
 import com.example.demo.util.ResponseBean;
 
@@ -27,7 +30,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 @RequestMapping("/announcements")
 public class AnnouncementController {
@@ -37,6 +39,8 @@ public class AnnouncementController {
     private CommentService cService;
     @Autowired
     private AnnouncementDocumentService adService;
+    @Autowired
+    private CourseService courseService;
 
     @PostMapping(value = "/save")
     public ResponseEntity<Object> create(@RequestParam Map<String, String> announcement,
@@ -49,7 +53,33 @@ public class AnnouncementController {
                 Object o = adService.upload(fil, a.getUuid());
                 if (!o.equals("error")) {
                     a.setTitle(announcement.get("title"));
-                    a.setIsGeneral(true);
+                    Boolean isG = Boolean.parseBoolean(announcement.get("isGeneral"));
+                    if (isG == true) {
+                        a.setIsGeneral(isG);
+                    } else {
+                        a.setIsGeneral(false);
+                        Course course = courseService.findByUuid(announcement.get("courseUuid"));
+                        if (course != null) {
+                            a.setCourse(course);
+                            if (announcement.get("isCourseMaterial") != null
+                                    || !announcement.get("isCourseMaterial").equalsIgnoreCase("false")) {
+                                a.setIsCourseMaterial(true);
+                                CourseMaterialType ctype = aService.getType(announcement.get("courseMaterialType"));
+                                if (ctype != null) {
+                                    a.setCourseMaterialType(ctype);
+                                } else {
+                                    rs.setCode(400);
+                                    rs.setDescription("invalid course material type");
+                                    return new ResponseEntity<>(rs, HttpStatus.OK);
+                                }
+                            }
+                        } else {
+                            rs.setCode(404);
+                            rs.setDescription("course not found");
+                            return new ResponseEntity<>(rs, HttpStatus.OK);
+                        }
+                    }
+
                     a.setDescription(announcement.get("description"));
                     a.setUserReferenceId(announcement.get("userId"));
                     aService.create(a);
@@ -79,46 +109,46 @@ public class AnnouncementController {
         return new ResponseEntity<>(rs, HttpStatus.OK);
     }
 
-    @PostMapping(value="/{uuid}/comments/save")
-    public ResponseEntity<Object> createComment(@RequestBody Comment c,@PathVariable String uuid) {
+    @PostMapping(value = "/{uuid}/comments/save")
+    public ResponseEntity<Object> createComment(@RequestBody Comment c, @PathVariable String uuid) {
         ResponseBean rs = new ResponseBean();
         try {
             Optional<Announcement> a = aService.findByUuid(uuid);
-            if(a.isPresent()){
+            if (a.isPresent()) {
                 c.setReferenceId(a.get().getId());
                 c.setReferenceName("comment");
                 cService.create(c);
                 rs.setCode(200);
                 rs.setDescription("success");
                 rs.setObject(c);
-            }else{
+            } else {
                 rs.setCode(404);
                 rs.setDescription("announcement Not found");
             }
         } catch (Exception e) {
-            //TODO: handle exception
+            // TODO: handle exception
             rs.setCode(300);
             rs.setDescription("Error Occured");
         }
-        return new ResponseEntity<>(rs,HttpStatus.OK);
+        return new ResponseEntity<>(rs, HttpStatus.OK);
     }
-    
-    @GetMapping(value="/details/{uuid}")
+
+    @GetMapping(value = "/details/{uuid}")
     public ResponseEntity<Object> getAnnouncementDetails(@PathVariable String uuid) {
         ResponseBean rs = new ResponseBean();
         try {
             Optional<Announcement> a = aService.findByUuid(uuid);
-            if(a.isPresent()){
+            if (a.isPresent()) {
                 List<AnnouncementDocument> documents = adService.findAllByAnnouncement(a.get().getId());
                 List<Comment> comments = cService.findByAnnouncement(a.get().getId());
-                Map<String,Object> map = new HashMap<>();
+                Map<String, Object> map = new HashMap<>();
                 map.put("announcement", a);
                 map.put("documents", documents);
                 map.put("comments", comments);
                 rs.setCode(200);
                 rs.setDescription("success");
                 rs.setObject(map);
-            }else{
+            } else {
                 rs.setCode(404);
                 rs.setDescription("announcement not found");
             }
@@ -126,29 +156,28 @@ public class AnnouncementController {
             rs.setCode(300);
             rs.setDescription("Error Occured");
         }
-        return new ResponseEntity<>(rs,HttpStatus.OK);
+        return new ResponseEntity<>(rs, HttpStatus.OK);
     }
-    
 
     @GetMapping(value = "/{uuid}")
     public ResponseEntity<Object> findByuuid(@PathVariable String uuid) {
         ResponseBean rs = new ResponseBean();
         try {
             Optional<Announcement> a = aService.findByUuid(uuid);
-            if(a.isPresent()){
+            if (a.isPresent()) {
                 rs.setCode(200);
                 rs.setDescription("success");
                 rs.setObject(a.get());
-            }else{
+            } else {
                 rs.setCode(404);
                 rs.setDescription("Not found");
             }
         } catch (Exception e) {
-            //TODO: handle exception
+            // TODO: handle exception
             rs.setCode(300);
             rs.setDescription("Error Occured");
         }
-        return new ResponseEntity<>(rs,HttpStatus.OK);
+        return new ResponseEntity<>(rs, HttpStatus.OK);
     }
-    
+
 }
