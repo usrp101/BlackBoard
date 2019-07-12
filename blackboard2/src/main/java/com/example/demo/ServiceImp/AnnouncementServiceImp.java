@@ -54,4 +54,11 @@ public class AnnouncementServiceImp implements AnnouncementService {
         return null;
     }
 
+    @Override
+    public List<Announcement> findByUserReferenceId(String id) {
+        List<Announcement> list = new ArrayList<Announcement>();
+        list =   (List<Announcement>) dao.findAll();
+        return list;
+    }
+
 }

@@ -25,8 +25,16 @@ public class Course {
 	   private String courseName;
 	   private String courseGroup;
 
-	   @ManyToOne
-	   private Users teacher;
+	   private int teacherId;
+
+
+    public int getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
+    }
 
     public long getId() {
         return id;
@@ -92,18 +100,6 @@ public class Course {
         this.courseGroup = courseGroup;
     }
 
-    /**
-     * @return Users return the teacher
-     */
-    public Users getTeacher() {
-        return teacher;
-    }
 
-    /**
-     * @param teacher the teacher to set
-     */
-    public void setTeacher(Users teacher) {
-        this.teacher = teacher;
-    }
 
 }

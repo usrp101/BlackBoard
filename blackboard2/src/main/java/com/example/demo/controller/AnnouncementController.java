@@ -85,6 +85,7 @@ public class AnnouncementController {
                     aService.create(a);
                     List<String> paths = (List<String>) o;
                     for (String p : paths) {
+                        System.out.println(p);
                         AnnouncementDocument ad = new AnnouncementDocument();
                         ad.setAnnouncement(a);
                         ad.setPath(p);
@@ -179,5 +180,29 @@ public class AnnouncementController {
         }
         return new ResponseEntity<>(rs, HttpStatus.OK);
     }
+
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping(value = "/user/{id}")
+    public ResponseEntity<Object> findByUser(@PathVariable String id) {
+        ResponseBean rs = new ResponseBean();
+        try {
+            rs.setCode(200);
+            rs.setDescription("success");
+            rs.setObject(aService.findByUserReferenceId(id));
+        } catch (Exception e) {
+            // TODO: handle exception
+            rs.setCode(300);
+            rs.setDescription("Error Occured");
+        }
+        return new ResponseEntity<>(rs, HttpStatus.OK);
+    }
+
+
+
 
 }

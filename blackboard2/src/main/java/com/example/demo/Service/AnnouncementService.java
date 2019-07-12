@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.Domain.Announcement;
@@ -12,4 +13,5 @@ public interface AnnouncementService {
     public abstract Optional<Announcement> findByid(long id);
     public abstract Optional<Announcement> findByUuid(String uuid);
     public abstract CourseMaterialType getType(String type);
+    List<Announcement> findByUserReferenceId(String id);
 }
