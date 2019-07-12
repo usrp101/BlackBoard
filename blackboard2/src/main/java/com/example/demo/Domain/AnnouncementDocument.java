@@ -57,5 +57,11 @@ public class AnnouncementDocument implements Serializable {
         this.announcement = announcement;
     }
 
-    
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 }

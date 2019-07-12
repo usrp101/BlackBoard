@@ -4,65 +4,16 @@
     <list default="true" id="09c24694-3f24-477a-998a-081749c62a19" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/Dao/AnnouncementDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/Dao/AnnouncementDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/Dao/CourseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/Dao/CourseDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/Domain/Announcement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/Domain/Announcement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/Domain/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/Domain/Course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/Domain/AnnouncementDocument.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/Domain/AnnouncementDocument.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/Service/AnnouncementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/Service/AnnouncementService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/Service/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/Service/CourseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/AnnouncementDocumentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/AnnouncementDocumentServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/AnnouncementServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/AnnouncementServiceImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/CourseServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/CourseServiceImp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/AnnouncementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/AnnouncementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/CourseController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Dao/AnnouncementDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Dao/AnnouncementDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Dao/AnnouncementDocumentDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Dao/AnnouncementDocumentDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Dao/AttendanceDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Dao/AttendanceDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Dao/CommentDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Dao/CommentDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Dao/CourseDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Dao/CourseDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Dao/StudentDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Dao/StudentDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Dao/Student_courseDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Dao/Student_courseDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Dao/UsersDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Dao/UsersDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/DemoApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/DemoApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/Announcement.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/Announcement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/AnnouncementDocument.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/AnnouncementDocument.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/Attendance.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/Attendance.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/Comment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/Comment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/Course.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/Course.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/CourseMaterial.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/CourseMaterial.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/CourseMaterialType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/CourseMaterialType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/Student.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/Student_course.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/Student_course.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/Users.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Domain/Users.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Service/AnnouncementDocumentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Service/AnnouncementDocumentService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Service/AnnouncementService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Service/AnnouncementService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Service/AttendanceService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Service/AttendanceService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Service/CommentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Service/CommentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Service/CourseService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Service/CourseService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Service/StudentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Service/StudentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Service/Student_courseService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Service/Student_courseService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Service/UserService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceImp/AnnouncementDocumentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceImp/AnnouncementDocumentServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceImp/AnnouncementServiceImp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceImp/AnnouncementServiceImp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceImp/AttendanceServiceImp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceImp/AttendanceServiceImp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceImp/CommentServiceImp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceImp/CommentServiceImp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceImp/CourseServiceImp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceImp/CourseServiceImp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceImp/StudentServiceImp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceImp/StudentServiceImp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceImp/Student_courseServiceImp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceImp/Student_courseServiceImp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceImp/StududentServiceImp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceImp/UserServiceImp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceImp/UserServiceImp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/WebConfig$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/WebConfig$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/WebConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/WebConfig.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/controller/AnnouncementController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/controller/AnnouncementController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/controller/CourseController$InnerCourse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/controller/CourseController$InnerCourse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/controller/CourseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/controller/CourseController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/controller/StudentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/controller/StudentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/controller/StudentCourseController$StudentCourse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/controller/StudentCourseController$StudentCourse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/controller/StudentCourseController$StudentSubmit.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/controller/StudentCourseController$StudentSubmit.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/controller/StudentCourseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/controller/StudentCourseController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/controller/UsersController$InnerUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/controller/UsersController$InnerUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/controller/UsersController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/controller/UsersController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/util/Messages.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/util/Messages.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/util/ResponseBean.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/util/ResponseBean.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/demo/DemoApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/example/demo/DemoApplicationTests.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -94,14 +45,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="98" />
-          <entry key="Properties" value="2" />
+          <entry key="JAVA" value="99" />
+          <entry key="Properties" value="3" />
           <entry key="XML" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="3989" />
+          <entry key="JAVA" value="4244" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="Properties" value="1" />
         </counts>
@@ -114,7 +65,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/Domain/CourseMaterialType.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="44">
-              <caret line="2" column="32" lean-forward="true" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
+              <caret line="2" column="32" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -122,8 +73,32 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/controller/AnnouncementController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="50" column="31" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
+            <state relative-caret-position="106">
+              <caret line="217" column="39" selection-start-line="217" selection-start-column="39" selection-end-line="217" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/Domain/AnnouncementDocument.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="414">
+              <caret line="43" column="9" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
+              <folding>
+                <element signature="e#1352#1353#0" expanded="true" />
+                <element signature="e#1379#1380#0" expanded="true" />
+                <element signature="e#1419#1420#0" expanded="true" />
+                <element signature="e#1451#1452#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -131,8 +106,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/AnnouncementDocumentServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="48" column="16" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
+            <state relative-caret-position="308">
+              <caret line="56" column="30" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -140,8 +115,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/Dao/AnnouncementDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="13" column="63" lean-forward="true" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="63" />
+            <state relative-caret-position="220">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
             </state>
           </provider>
         </entry>
@@ -149,8 +124,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/Service/AnnouncementService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="15" column="56" selection-start-line="15" selection-start-column="56" selection-end-line="15" selection-end-column="56" />
+            <state relative-caret-position="198">
+              <caret line="13" column="67" lean-forward="true" selection-start-line="13" selection-start-column="67" selection-end-line="13" selection-end-column="67" />
             </state>
           </provider>
         </entry>
@@ -158,8 +133,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/AnnouncementServiceImp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+            <state relative-caret-position="484">
+              <caret line="59" column="61" selection-start-line="59" selection-start-column="61" selection-end-line="59" selection-end-column="61" />
               <folding>
                 <element signature="e#1540#1554#0" expanded="true" />
               </folding>
@@ -170,7 +145,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/AttendanceServiceImp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
+            <state relative-caret-position="-330">
               <caret line="41" column="20" selection-start-line="39" selection-start-column="8" selection-end-line="41" selection-end-column="20" />
             </state>
           </provider>
@@ -180,7 +155,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/Domain/Announcement.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-396">
-              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+              <caret line="28" selection-start-line="28" selection-end-line="28" />
             </state>
           </provider>
         </entry>
@@ -232,10 +207,12 @@
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/CourseServiceImp.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/Service/CourseService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/Dao/CourseDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/Domain/Announcement.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/AnnouncementDocumentServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/Dao/AnnouncementDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/Service/AnnouncementService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/AnnouncementServiceImp.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/Domain/Announcement.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/demo/Domain/AnnouncementDocument.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/demo/controller/AnnouncementController.java" />
       </list>
     </option>
@@ -271,17 +248,6 @@
             <path>
               <item name="blackboard2" type="b2602c69:ProjectViewProjectNode" />
               <item name="blackboard2" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blackboard2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blackboard2" type="462c0819:PsiDirectoryNode" />
-              <item name="BLACKBOARD_FILES" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="blackboard2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="blackboard2" type="462c0819:PsiDirectoryNode" />
-              <item name="BLACKBOARD_FILES" type="462c0819:PsiDirectoryNode" />
-              <item name="AnnouncementDocs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="blackboard2" type="b2602c69:ProjectViewProjectNode" />
@@ -325,7 +291,23 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="demo" type="462c0819:PsiDirectoryNode" />
+              <item name="Domain" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blackboard2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blackboard2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="demo" type="462c0819:PsiDirectoryNode" />
               <item name="ServiceImp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blackboard2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blackboard2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -341,7 +323,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1562929784022" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1562941400589" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../LEASONP/playfirst" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -395,18 +377,18 @@
       <workItem from="1562854980718" duration="1776000" />
       <workItem from="1562860676561" duration="1150000" />
       <workItem from="1562913533975" duration="1059000" />
-      <workItem from="1562917173972" duration="10021000" />
+      <workItem from="1562917173972" duration="16198000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47566000" />
+    <option name="totallyTimeSpent" value="53743000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21595745" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21595745" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="JRebel" order="3" side_tool="true" />
@@ -418,7 +400,7 @@
       <window_info id="Web" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32785088" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24890351" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -510,13 +492,6 @@
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-6798" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="16" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/StududentServiceImp.java" />
@@ -692,62 +667,82 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/Dao/AnnouncementDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="13" column="63" lean-forward="true" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/AttendanceServiceImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="41" column="20" selection-start-line="39" selection-start-column="8" selection-end-line="41" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/Domain/CourseMaterialType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
-          <caret line="2" column="32" lean-forward="true" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/Service/AnnouncementService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="15" column="56" selection-start-line="15" selection-start-column="56" selection-end-line="15" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/AnnouncementServiceImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
-          <folding>
-            <element signature="e#1540#1554#0" expanded="true" />
-          </folding>
+          <caret line="2" column="32" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/Domain/Announcement.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-396">
-          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/AnnouncementDocumentServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="48" column="16" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
+        <state relative-caret-position="308">
+          <caret line="56" column="30" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/Dao/AnnouncementDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/Service/AnnouncementService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="13" column="67" lean-forward="true" selection-start-line="13" selection-start-column="67" selection-end-line="13" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/AttendanceServiceImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-330">
+          <caret line="41" column="20" selection-start-line="39" selection-start-column="8" selection-end-line="41" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/ServiceImp/AnnouncementServiceImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="59" column="61" selection-start-line="59" selection-start-column="61" selection-end-line="59" selection-end-column="61" />
+          <folding>
+            <element signature="e#1540#1554#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/Domain/AnnouncementDocument.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="43" column="9" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
+          <folding>
+            <element signature="e#1352#1353#0" expanded="true" />
+            <element signature="e#1379#1380#0" expanded="true" />
+            <element signature="e#1419#1420#0" expanded="true" />
+            <element signature="e#1451#1452#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/controller/AnnouncementController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="50" column="31" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
+        <state relative-caret-position="106">
+          <caret line="217" column="39" selection-start-line="217" selection-start-column="39" selection-end-line="217" selection-end-column="39" />
         </state>
       </provider>
     </entry>

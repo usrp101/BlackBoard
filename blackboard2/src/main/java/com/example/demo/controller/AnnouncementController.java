@@ -1,5 +1,12 @@
 package com.example.demo.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -19,16 +26,14 @@ import com.example.demo.util.Messages;
 import com.example.demo.util.ResponseBean;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/announcements")
@@ -187,13 +192,14 @@ public class AnnouncementController {
      * @param id
      * @return
      */
-    @GetMapping(value = "/user/{id}")
-    public ResponseEntity<Object> findByUser(@PathVariable String id) {
+    @GetMapping(value = "/user/{id}/course/{cid}")
+    public ResponseEntity<Object> findByUser(@PathVariable("id") String id,@PathVariable("cid")String cid) {
         ResponseBean rs = new ResponseBean();
         try {
-            rs.setCode(200);
-            rs.setDescription("success");
-            rs.setObject(aService.findByUserReferenceId(id));
+            Course c=courseService.findByUuid(cid);
+                    rs.setCode(200);
+                    rs.setDescription("success");
+                    rs.setObject(aService.findByUserReferenceId(id,c.getId()));
         } catch (Exception e) {
             // TODO: handle exception
             rs.setCode(300);
@@ -203,6 +209,45 @@ public class AnnouncementController {
     }
 
 
+    // download Loan Document file
+    @RequestMapping(path = "/documents/download/{uuid}", method = RequestMethod.GET)
+    public ResponseEntity<Resource> download( @PathVariable("uuid") String uuid) throws IOException {
+
+        AnnouncementDocument ad=adService.findByUuid(uuid).get();
+
+        String filePath = ad.getPath();
+        File file = new File(filePath);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        headers.add("Content-Disposition", "inline; filename=" + file.getName());
+        Path path = Paths.get(filePath);
+        byte[] b = Files.readAllBytes((path));
+        ByteArrayInputStream bis = new ByteArrayInputStream(b);
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+
+        // InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+        return ResponseEntity.ok().headers(headers).contentLength(file.length())
+                .contentType(MediaType.parseMediaType("application/octet-stream")).body(new InputStreamResource(bis));
+    }
+
+
+    @GetMapping(value = "/files/{uuid}")
+    public ResponseEntity<Object> file(@PathVariable("uuid") String uuid) {
+        ResponseBean rs = new ResponseBean();
+        try {
+            Announcement a=aService.findByUuid(uuid).get();
+            rs.setCode(200);
+            rs.setDescription("success");
+            rs.setObject(adService.findAllByAnnouncement(a.getId()  ));
+        } catch (Exception e) {
+            // TODO: handle exception
+            rs.setCode(300);
+            rs.setDescription("Error Occured");
+        }
+        return new ResponseEntity<>(rs, HttpStatus.OK);
+    }
 
 
 }

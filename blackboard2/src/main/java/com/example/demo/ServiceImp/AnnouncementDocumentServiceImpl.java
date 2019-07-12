@@ -63,6 +63,7 @@ public class AnnouncementDocumentServiceImpl implements AnnouncementDocumentServ
                 Path path = Paths.get(sub.getPath() + "/" + filename);
                 Files.write(path, bytes);
                 paths.add(path.toString());
+
             }
             return paths;
         } catch (Exception e) {
