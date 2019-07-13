@@ -11,7 +11,7 @@ public interface CourseService {
 
 		Course findByCourseCode(String code);
 		Course findByUuid(String code);
-		List<Course> findByTeacherId(long id);
+		List<Course> findByTeacherId(int id);
 		List<Course> findAll();
 
 }

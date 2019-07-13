@@ -56,7 +56,7 @@ public class CourseServiceImp implements CourseService{
 	}
 
 	@Override
-	public List<Course> findByTeacherId(long id) {
+	public List<Course> findByTeacherId(int id) {
 		List<Course> list = new ArrayList<Course>();
 		list =   (List<Course>) courseDao.findByTeacherId(id);
 		return list;

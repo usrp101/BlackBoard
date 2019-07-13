@@ -14,4 +14,6 @@ public interface AttendanceService {
 	Attendance findByAttendanceDateAndStudentCourseUuid (Date dt, String uuid);
 	List<Attendance> findByAttendanceDateAndStudentCourseCourseUuid(Date dt,String uuid);
 
+	void delete(Attendance attendance);
+
 }

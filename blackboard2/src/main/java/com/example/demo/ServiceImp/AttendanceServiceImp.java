@@ -73,5 +73,10 @@ public class AttendanceServiceImp implements AttendanceService {
 		return list;
 	}
 
+	@Override
+	public void delete(Attendance attendance) {
+		attendanceDao.delete(attendance);
+	}
+
 
 }

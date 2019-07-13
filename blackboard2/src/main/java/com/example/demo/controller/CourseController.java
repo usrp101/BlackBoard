@@ -31,15 +31,15 @@ public class CourseController {
         //TODO: process POST request
   
         try {
-            Users u=userService.findByUuid(c.teacher);
-            if(u==null){
+
+
                 Course course=new Course();
                 Course courseCheck=courseService.findByCourseCode(c.getCourseCode());
                if(courseCheck==null){
                    course.setCourseCode(c.courseCode);
                    course.setCourseGroup(c.courseGroup);
                    course.setCourseName(c.courseName);
-                   course.setTeacher(null);
+                   course.setTeacherId(c.teacher);
                    Course nc=courseService.create(course);
                        responseBean.setCode(Messages.SUCCESS_CODE);
                        responseBean.setDescription("SAVE SUCCESSFULLY");
@@ -50,11 +50,7 @@ public class CourseController {
                    responseBean.setObject(null);
                }
 
-            }else{
-                responseBean.setCode(Messages.ERROR_CODE);
-                responseBean.setDescription(Messages.not_found);
-                responseBean.setObject(null);
-            }
+
 
         } catch (Exception e) {
             //TODO: handle exception
@@ -78,10 +74,10 @@ public class CourseController {
         // TODO: process POST request
         try {
              Course course=courseService.findByUuid(uuid);
-             Users user=userService.findByUuid(c.teacher);
+
             if (c != null) {
                 Course upc=new Course();
-                upc.setTeacher(user);
+                upc.setTeacherId(c.teacher);
                 upc.setCourseName(c.courseName);
                 upc.setCourseGroup(c.courseGroup);
                 upc.setCourseCode(c.courseCode);
@@ -106,7 +102,7 @@ public class CourseController {
     }
     /**
      * Find BY Course Code
-     * @param id
+     * @param
      * @return
      */
     @RequestMapping(value = "/course/{code}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -178,18 +174,17 @@ public class CourseController {
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/teacher/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> findByTeacher(@PathVariable("uuid")String uuid) {
+    @RequestMapping(value = "/teacher/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> findByTeacher(@PathVariable("id")String id) {
         ResponseBean responseBean = new ResponseBean();
         // TODO: process POST request
         try {
-
-            Users u=userService.findByUuid(uuid);
-            if(u!=null){
+            System.out.println(id);
+            if(id!=null){
 
                 responseBean.setCode(Messages.SUCCESS_CODE);
                 responseBean.setDescription("");
-                responseBean.setObject(courseService.findByTeacherId(u.getId()));
+                responseBean.setObject(courseService.findByTeacherId(Integer.parseInt(id)));
 
             }else{
 
@@ -197,6 +192,7 @@ public class CourseController {
 
         } catch (Exception e) {
             // TODO: handle exception
+            e.printStackTrace();
             responseBean.setCode(Messages.ERROR_CODE);
             responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
@@ -209,7 +205,7 @@ public class CourseController {
         private String courseCode;
         private String courseName;
         private String courseGroup;
-        private String teacher;
+        private int teacher;
 
         public String getCourseCode() {
             return courseCode;
@@ -235,11 +231,11 @@ public class CourseController {
             this.courseGroup = courseGroup;
         }
 
-        public String getTeacher() {
+        public int getTeacher() {
             return teacher;
         }
 
-        public void setTeacher(String teacher) {
+        public void setTeacher(int teacher) {
             this.teacher = teacher;
         }
     }

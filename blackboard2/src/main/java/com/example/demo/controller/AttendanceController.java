@@ -1,9 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.Domain.Attendance;
-import com.example.demo.Domain.Course;
+
 import com.example.demo.Domain.Student_course;
-import com.example.demo.Domain.Users;
 import com.example.demo.Service.AttendanceService;
 import com.example.demo.Service.Student_courseService;
 import com.example.demo.util.Messages;
@@ -31,55 +30,27 @@ public class AttendanceController {
         ResponseBean responseBean = new ResponseBean();
         //TODO: process POST request
         try {
-
-            for (AttendanceInfo u: a.attendanceInfo) {
-                Student_course stc=studentCourseService.findByUuid(u.studentCourse);
+            
+             SimpleDateFormat sd=new SimpleDateFormat("yyy-MM-dd");
+             Date dt=sd.parse(a.attendanceDate);
+             System.out.println(studentCourseService.findByUuid(a.attendanceInfo.get(0)).getUuid());
+             List<Attendance> tt=attendanceService.findByAttendanceDateAndStudentCourseCourseUuid(dt,studentCourseService.findByUuid(a.attendanceInfo.get(0)).getUuid() );
+             makeUbsent(tt);
+            for (String u: a.attendanceInfo) {
+                Student_course stc=studentCourseService.findByUuid(u);
                 if(stc!=null){
                     Attendance att=new Attendance();
-                    att.setAttendanceDate(a.attendanceDate);
-                    att.setPresent(u.isPresent);
+                    att.setAttendanceDate(dt);
+                    att.setPresent(true);
                     att.setStudentCourse(stc);
-                    attendanceService.create(att);
-                }else{
-                    responseBean.setCode(Messages.ERROR_CODE);
-                    responseBean.setDescription(Messages.error);
-                    responseBean.setObject(null);
-                }
-            }
-
-        } catch (Exception e) {
-            //TODO: handle exception
-            responseBean.setCode(Messages.ERROR_CODE);
-            responseBean.setDescription(Messages.error);
-            responseBean.setObject(null);
-        }
-        return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
-    }
-
-
-    @RequestMapping(value = "/update", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> update(@RequestBody InnerAttendance a) {
-        ResponseBean responseBean = new ResponseBean();
-        //TODO: process POST request
-        try {
-
-            for (AttendanceInfo u: a.attendanceInfo) {
-                Student_course stc=studentCourseService.findByUuid(u.studentCourse);
-                if(stc!=null){
-                    Attendance att=new Attendance();
-                    att.setAttendanceDate(a.attendanceDate);
-                    att.setPresent(u.isPresent);
-                    att.setStudentCourse(stc);
-                    Attendance atCheck=attendanceService.findByAttendanceDateAndStudentCourseUuid(a.attendanceDate,stc.getCourse().getUuid());
-                    if(atCheck!=null){
-                        atCheck.setStudentCourse(stc);
-                        atCheck.setPresent(u.isPresent);
-                        atCheck.setAttendanceDate(a.attendanceDate);
-                       attendanceService.create(atCheck);
+                    Attendance chek=attendanceService.findByAttendanceDateAndStudentCourseUuid(dt, stc.getUuid());
+                    if(chek!=null){
+                         chek.setId(chek.getId());
+                          attendanceService.create(att);
                     }else{
-                        attendanceService.create(att);
+                          attendanceService.create(att);
                     }
-
+                   
                 }else{
                     responseBean.setCode(Messages.ERROR_CODE);
                     responseBean.setDescription(Messages.error);
@@ -89,12 +60,66 @@ public class AttendanceController {
 
         } catch (Exception e) {
             //TODO: handle exception
+            e.printStackTrace();
             responseBean.setCode(Messages.ERROR_CODE);
             responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
     }
+     
+
+
+
+    public void makeUbsent(List<Attendance> attendances){
+          for(Attendance a: attendances){
+              a.setPresent(false);
+              attendanceService.delete(a);
+          }
+    }
+
+
+
+
+
+    // @RequestMapping(value = "/update", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    // public ResponseEntity<Object> update(@RequestBody InnerAttendance a) {
+    //     ResponseBean responseBean = new ResponseBean();
+    //     //TODO: process POST request
+    //     try {
+
+    //         for (AttendanceInfo u: a.attendanceInfo) {
+    //             Student_course stc=studentCourseService.findByUuid(u.studentCourse);
+    //             if(stc!=null){
+    //                 Attendance att=new Attendance();
+    //                 att.setAttendanceDate(a.attendanceDate);
+    //                 att.setPresent(u.isPresent);
+    //                 att.setStudentCourse(stc);
+    //                 Attendance atCheck=attendanceService.findByAttendanceDateAndStudentCourseUuid(a.attendanceDate,stc.getCourse().getUuid());
+    //                 if(atCheck!=null){
+    //                     atCheck.setStudentCourse(stc);
+    //                     atCheck.setPresent(u.isPresent);
+    //                     atCheck.setAttendanceDate(a.attendanceDate);
+    //                    attendanceService.create(atCheck);
+    //                 }else{
+    //                     attendanceService.create(att);
+    //                 }
+
+    //             }else{
+    //                 responseBean.setCode(Messages.ERROR_CODE);
+    //                 responseBean.setDescription(Messages.error);
+    //                 responseBean.setObject(null);
+    //             }
+    //         }
+
+    //     } catch (Exception e) {
+    //         //TODO: handle exception
+    //         responseBean.setCode(Messages.ERROR_CODE);
+    //         responseBean.setDescription(Messages.error);
+    //         responseBean.setObject(null);
+    //     }
+    //     return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
+    // }
 
 
     @RequestMapping(value = "", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -139,44 +164,25 @@ public class AttendanceController {
 
 
     private static  class InnerAttendance{
-        private Date attendanceDate;
-        private List<AttendanceInfo> attendanceInfo;
+        private String attendanceDate;
+        private List<String> attendanceInfo;
 
-        public Date getAttendanceDate() {
+        public String getAttendanceDate() {
             return attendanceDate;
         }
 
-        public void setAttendanceDate(Date attendanceDate) {
+        public void setAttendanceDate(String attendanceDate) {
             this.attendanceDate = attendanceDate;
         }
 
-        public List<AttendanceInfo> getAttendanceInfo() {
+        public List<String> getAttendanceInfo() {
             return attendanceInfo;
         }
 
-        public void setAttendanceInfo(List<AttendanceInfo> attendanceInfo) {
+        public void setAttendanceInfo(List<String> attendanceInfo) {
             this.attendanceInfo = attendanceInfo;
         }
     }
 
-    private static class AttendanceInfo{
-        private String studentCourse;
-        private boolean isPresent;
-
-        public String getStudentCourse() {
-            return studentCourse;
-        }
-
-        public void setStudentCourse(String studentCourse) {
-            this.studentCourse = studentCourse;
-        }
-
-        public boolean isPresent() {
-            return isPresent;
-        }
-
-        public void setPresent(boolean present) {
-            isPresent = present;
-        }
-    }
+   
 }

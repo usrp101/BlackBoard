@@ -26,7 +26,7 @@ public class Announcement implements Serializable {
 	private Boolean isCourseMaterial;
 	private CourseMaterialType courseMaterialType;
 	private String userReferenceId;
-	@JsonIgnore
+
 	@ManyToOne
 	private Course course;
 
