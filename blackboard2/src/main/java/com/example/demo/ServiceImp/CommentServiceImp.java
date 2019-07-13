@@ -37,7 +37,7 @@ public class CommentServiceImp implements CommentService {
 
     @Override
     public List<Comment> findByAnnouncement(long id) {
-        return dao.findByReferenceNameAndReferenceId("comment",id);
+        return dao.findByReferenceNameAndReferenceId("announcement",id);
     }
 
 }
