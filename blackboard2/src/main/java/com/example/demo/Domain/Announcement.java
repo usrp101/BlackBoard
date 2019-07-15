@@ -1,6 +1,7 @@
 package com.example.demo.Domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -10,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Announcement implements Serializable {
@@ -21,17 +21,37 @@ public class Announcement implements Serializable {
 	private String title;
 	@Column(updatable = false)
 	private String uuid = UUID.randomUUID().toString();
+	@Column(columnDefinition = "TEXT")
 	private String description;
 	private Boolean isGeneral;
 	private Boolean isCourseMaterial;
 	private CourseMaterialType courseMaterialType;
 	private String userReferenceId;
+	private String userNames;
+	@Column(updatable = false)
+	private Date doneAt = new Date();
 
 	@ManyToOne
 	private Course course;
 
 	public String getTitle() {
 		return title;
+	}
+
+	public Date getDoneAt() {
+		return doneAt;
+	}
+
+	public void setDoneAt(Date doneAt) {
+		this.doneAt = doneAt;
+	}
+
+	public String getUserNames() {
+		return userNames;
+	}
+
+	public void setUserNames(String userNames) {
+		this.userNames = userNames;
 	}
 
 	public CourseMaterialType getCourseMaterialType() {

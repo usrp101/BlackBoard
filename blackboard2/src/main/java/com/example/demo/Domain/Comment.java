@@ -1,6 +1,7 @@
 package com.example.demo.Domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -14,9 +15,11 @@ public class Comment implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+    private long id;
+    @Column(updatable = false)
+    private Date doneAt = new Date();
     private String description;
-	@Column(updatable = false)
+    @Column(updatable = false)
     private String uuid = UUID.randomUUID().toString();
     private String referenceName;
     private long referenceId;
@@ -28,6 +31,14 @@ public class Comment implements Serializable {
      */
     public String getDescription() {
         return description;
+    }
+
+    public Date getDoneAt() {
+        return doneAt;
+    }
+
+    public void setDoneAt(Date doneAt) {
+        this.doneAt = doneAt;
     }
 
     public String getCommentatorName() {

@@ -13,5 +13,8 @@ public interface AnnouncementService {
     public abstract Optional<Announcement> findByid(long id);
     public abstract Optional<Announcement> findByUuid(String uuid);
     public abstract CourseMaterialType getType(String type);
-    List<Announcement> findByUserReferenceId(String tid,long id);
+    List<Announcement> findCourseMaterialsByCourseId(long id);
+    List<Announcement> findAnnouncementsByCourseId(long id);
+	public abstract List<Announcement> findAnnouncementsByUserId(String id);
+	public abstract List<Announcement> findAllGeneralAnnouncements();
 }

@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.example.demo.Domain.Announcement;
 import com.example.demo.Domain.AnnouncementDocument;
 import com.example.demo.Domain.Comment;
@@ -61,13 +63,14 @@ public class AnnouncementController {
                     Boolean isG = Boolean.parseBoolean(announcement.get("isGeneral"));
                     if (isG == true) {
                         a.setIsGeneral(isG);
+                        a.setIsCourseMaterial(false);
                     } else {
                         a.setIsGeneral(false);
                         Course course = courseService.findByUuid(announcement.get("courseUuid"));
                         if (course != null) {
                             a.setCourse(course);
                             if (announcement.get("isCourseMaterial") != null
-                                    || !announcement.get("isCourseMaterial").equalsIgnoreCase("false")) {
+                                    && !announcement.get("isCourseMaterial").equalsIgnoreCase("false")) {
                                 a.setIsCourseMaterial(true);
                                 CourseMaterialType ctype = aService.getType(announcement.get("courseMaterialType"));
                                 if (ctype != null) {
@@ -77,6 +80,8 @@ public class AnnouncementController {
                                     rs.setDescription("invalid course material type");
                                     return new ResponseEntity<>(rs, HttpStatus.OK);
                                 }
+                            }else{
+                                a.setIsCourseMaterial(false);
                             }
                         } else {
                             rs.setCode(404);
@@ -84,7 +89,7 @@ public class AnnouncementController {
                             return new ResponseEntity<>(rs, HttpStatus.OK);
                         }
                     }
-
+                    a.setUserNames(announcement.get("userNames"));
                     a.setDescription(announcement.get("description"));
                     a.setUserReferenceId(announcement.get("userId"));
                     aService.create(a);
@@ -122,7 +127,7 @@ public class AnnouncementController {
             Optional<Announcement> a = aService.findByUuid(uuid);
             if (a.isPresent()) {
                 c.setReferenceId(a.get().getId());
-                c.setReferenceName("comment");
+                c.setReferenceName("announcement");
                 cService.create(c);
                 rs.setCode(200);
                 rs.setDescription("success");
@@ -186,20 +191,66 @@ public class AnnouncementController {
         return new ResponseEntity<>(rs, HttpStatus.OK);
     }
 
-
     /**
      *
      * @param id
      * @return
      */
-    @GetMapping(value = "/user/{id}/course/{cid}")
-    public ResponseEntity<Object> findByUser(@PathVariable("id") String id,@PathVariable("cid")String cid) {
+    @GetMapping(value = "/coursematerials/course/{cid}")
+    public ResponseEntity<Object> findMaterialsByCourse(@PathVariable("cid") String cid) {
         ResponseBean rs = new ResponseBean();
         try {
-            Course c=courseService.findByUuid(cid);
-                    rs.setCode(200);
-                    rs.setDescription("success");
-                    rs.setObject(aService.findByUserReferenceId(id,c.getId()));
+            Course c = courseService.findByUuid(cid);
+            rs.setCode(200);
+            rs.setDescription("success");
+            rs.setObject(aService.findCourseMaterialsByCourseId(c.getId()));
+        } catch (Exception e) {
+            // TODO: handle exception
+            rs.setCode(300);
+            rs.setDescription("Error Occured");
+        }
+        return new ResponseEntity<>(rs, HttpStatus.OK);
+    }
+    @GetMapping(value = "/courseannouncements/course/{cid}")
+    public ResponseEntity<Object> findAnnouncementsByCourse(@PathVariable("cid") String cid) {
+        ResponseBean rs = new ResponseBean();
+        try {
+            Course c = courseService.findByUuid(cid);
+            rs.setCode(200);
+            rs.setDescription("success");
+            rs.setObject(aService.findAnnouncementsByCourseId(c.getId()));
+        } catch (Exception e) {
+            // TODO: handle exception
+            rs.setCode(300);
+            rs.setDescription("Error Occured");
+        }
+        return new ResponseEntity<>(rs, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/general/user/{id}")
+    public ResponseEntity<Object> findAnnouncementsByUser(@PathVariable("id") String id) {
+        ResponseBean rs = new ResponseBean();
+        try {
+            List<Announcement> li = aService.findAnnouncementsByUserId(id);
+            rs.setCode(200);
+            rs.setDescription("success");
+            rs.setObject(li);
+        } catch (Exception e) {
+            // TODO: handle exception
+            rs.setCode(300);
+            rs.setDescription("Error Occured");
+        }
+        return new ResponseEntity<>(rs, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/general")
+    public ResponseEntity<Object> findAnnouncementsByUser(HttpServletRequest request) {
+        ResponseBean rs = new ResponseBean();
+        try {
+            List<Announcement> li = aService.findAllGeneralAnnouncements();
+            rs.setCode(200);
+            rs.setDescription("success");
+            rs.setObject(li);
         } catch (Exception e) {
             // TODO: handle exception
             rs.setCode(300);
@@ -211,9 +262,9 @@ public class AnnouncementController {
 
     // download Loan Document file
     @RequestMapping(path = "/documents/download/{uuid}", method = RequestMethod.GET)
-    public ResponseEntity<Resource> download( @PathVariable("uuid") String uuid) throws IOException {
+    public ResponseEntity<Resource> download(@PathVariable("uuid") String uuid) throws IOException {
 
-        AnnouncementDocument ad=adService.findByUuid(uuid).get();
+        AnnouncementDocument ad = adService.findByUuid(uuid).get();
 
         String filePath = ad.getPath();
         File file = new File(filePath);
@@ -227,20 +278,20 @@ public class AnnouncementController {
         ByteArrayInputStream bis = new ByteArrayInputStream(b);
         InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 
-        // InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+        // InputStreamResource resource = new InputStreamResource(new
+        // FileInputStream(file));
         return ResponseEntity.ok().headers(headers).contentLength(file.length())
                 .contentType(MediaType.parseMediaType("application/octet-stream")).body(new InputStreamResource(bis));
     }
-
 
     @GetMapping(value = "/files/{uuid}")
     public ResponseEntity<Object> file(@PathVariable("uuid") String uuid) {
         ResponseBean rs = new ResponseBean();
         try {
-            Announcement a=aService.findByUuid(uuid).get();
+            Announcement a = aService.findByUuid(uuid).get();
             rs.setCode(200);
             rs.setDescription("success");
-            rs.setObject(adService.findAllByAnnouncement(a.getId()  ));
+            rs.setObject(adService.findAllByAnnouncement(a.getId()));
         } catch (Exception e) {
             // TODO: handle exception
             rs.setCode(300);
@@ -248,6 +299,5 @@ public class AnnouncementController {
         }
         return new ResponseEntity<>(rs, HttpStatus.OK);
     }
-
 
 }

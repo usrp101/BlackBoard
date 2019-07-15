@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AnnouncementDao extends JpaRepository<Announcement, Long> {
     public Optional<Announcement> findByUuid(String uuid);
-
-    public List<Announcement> findByUserReferenceIdAndCourseId(String tid,long id);
+    public List<Announcement> findByCourseIdAndIsCourseMaterial(long id,boolean isCm);
+    public List<Announcement> findByUserReferenceIdAndIsGeneral(String id,boolean isG);
+	public List<Announcement> findByIsGeneral(boolean isG);
 }
