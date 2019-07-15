@@ -67,9 +67,9 @@ public class AttendanceServiceImp implements AttendanceService {
 	}
 
 	@Override
-	public List<Attendance> findByAttendanceDateAndStudentCourseCourseUuid(Date dt, String uuid) {
+	public List<Attendance> findByAttendanceDate(Date dt) {
 		List<Attendance> list = new ArrayList<Attendance>();
-		list =   (List<Attendance>) attendanceDao.findByAttendanceDateAndStudentCourseCourseUuid(dt,uuid);
+		list =   (List<Attendance>) attendanceDao.findByAttendanceDate(dt);
 		return list;
 	}
 
