@@ -59,7 +59,7 @@ public class AttendanceServiceImp implements AttendanceService {
 	@Override
 	public Attendance findByAttendanceDateAndStudentCourseUuid(Date dt, String uuid) {
 		Attendance attendance = null;
-		Optional<Attendance> opattendance =Optional.ofNullable(attendanceDao.findByAttendanceDateAndStudentCourseUuid(dt,uuid));
+		Optional<Attendance> opattendance =Optional.ofNullable(attendanceDao.findByCourseAttendanceDateAndStudentCourseUuid(dt,uuid));
 		if(opattendance.isPresent()) {
 			attendance = opattendance.get();
 		}
@@ -69,7 +69,7 @@ public class AttendanceServiceImp implements AttendanceService {
 	@Override
 	public List<Attendance> findByAttendanceDate(Date dt) {
 		List<Attendance> list = new ArrayList<Attendance>();
-		list =   (List<Attendance>) attendanceDao.findByAttendanceDate(dt);
+		list =   (List<Attendance>) attendanceDao.findByCourseAttendanceDate(dt);
 		return list;
 	}
 
