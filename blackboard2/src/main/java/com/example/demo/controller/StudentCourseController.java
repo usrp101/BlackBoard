@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.Dao.Student_courseDao;
 import com.example.demo.Domain.Course;
 import com.example.demo.Domain.Student;
 import com.example.demo.Domain.Student_course;
@@ -22,6 +23,9 @@ public class StudentCourseController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private Student_courseDao studeDao;
 
     @Autowired
     private Student_courseService studentCourseService;
@@ -185,6 +189,35 @@ public class StudentCourseController {
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
     }
+
+
+
+     @RequestMapping(value = "/student/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> findByStudent(@PathVariable("id") String id) {
+        ResponseBean responseBean = new ResponseBean();
+        // TODO: process POST request
+        try {
+                 Student st=studentService.findByStudentId(id);
+                 if(st!=null){
+                     responseBean.setCode(Messages.SUCCESS_CODE);
+                     responseBean.setDescription("RECORD FOUND");
+                     responseBean.setObject(studeDao.findByStudentId(st.getId()));
+                 }else{
+                     responseBean.setCode(Messages.ERROR_CODE);
+                     responseBean.setDescription("STUDENT NOT FOUND");
+                     responseBean.setObject("");
+                 }
+           
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
+            responseBean.setObject(null);
+        }
+        return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
+    }
+
 
 
 
