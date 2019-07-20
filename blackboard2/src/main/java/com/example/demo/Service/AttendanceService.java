@@ -13,7 +13,6 @@ public interface AttendanceService {
 	List<Attendance> findByStudent(long id);
 	Attendance findByAttendanceDateAndStudentCourseUuid (Date dt, String uuid);
 	List<Attendance> findByAttendanceDate(Date dt);
-
 	void delete(Attendance attendance);
 
 }

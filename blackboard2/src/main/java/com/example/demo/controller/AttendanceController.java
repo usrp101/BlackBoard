@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.Dao.AttendanceDao;
+import com.example.demo.Dao.CourseAttendanceDao;
 import com.example.demo.Domain.Attendance;
 import com.example.demo.Domain.Course;
+import com.example.demo.Domain.CourseAttendance;
 import com.example.demo.Domain.Student_course;
 import com.example.demo.Service.AttendanceService;
 import com.example.demo.Service.CourseService;
@@ -18,55 +21,54 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/attendances")
 public class AttendanceController {
-      @Autowired
-      private Student_courseService studentCourseService;
-      @Autowired
-      private AttendanceService attendanceService;
-      
-      @Autowired
-      private CourseService courseService;
+    @Autowired
+    private Student_courseService studentCourseService;
+    @Autowired
+    private AttendanceService attendanceService;
+    @Autowired
+    private AttendanceDao attService;
+    @Autowired
+    private CourseAttendanceDao courseAttendanceService;
 
     @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> save(@RequestBody InnerAttendance a) {
+    public ResponseEntity<Object> save(@RequestBody Map<String,Object> map) {
         ResponseBean responseBean = new ResponseBean();
         //TODO: process POST request
         try {
-            
-             SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd");
-             Date dt=sd.parse(a.attendanceDate);
-            
-             List<Attendance> tt=attendanceService.findByAttendanceDate(dt);
-                Student_course stcheck=studentCourseService.findByUuid(a.attendanceInfo.get(0));
-             makeUbsent(tt,stcheck);
-            for (String u: a.attendanceInfo) {
-                Student_course stc=studentCourseService.findByUuid(u);
-                if(stc!=null){
-                    Attendance att=new Attendance();
-                    att.setAttendanceDate(dt);
-                    att.setPresent(true);
-                    att.setStudentCourse(stc);
-                    Attendance chek=attendanceService.findByAttendanceDateAndStudentCourseUuid(dt, stc.getUuid());
-                    if(chek!=null){
-                         chek.setId(chek.getId());
-                          attendanceService.create(att);
-                    }else{
-                          attendanceService.create(att);
+            Optional<CourseAttendance> c = courseAttendanceService.findByUuid(map.get("courseAttendanceUuid").toString());
+            if(c.isPresent()){
+                List<String> li = (List<String>) map.get("attendanceInfo");
+                for(String s:li){
+                    String scUuid = s.split("_")[0];
+                    boolean present = Boolean.parseBoolean(s.split("_")[1]);
+                    Student_course sc = studentCourseService.findByUuid(scUuid);
+                    if(sc!=null){
+                        Optional<Attendance> check = attService.findByStudentCourseIdAndCourseAttendanceId(sc.getId(), c.get().getId());
+                        if(check.isPresent()){
+                            Attendance at = check.get();
+                            at.setPresent(present);
+                            attService.save(at);
+                        }else{
+                            Attendance at = new Attendance();
+                            at.setPresent(present);
+                            at.setCourseAttendance(c.get());
+                            at.setStudentCourse(sc);
+                            attService.save(at);
+                        }
                     }
-                   
-                }else{
-                    responseBean.setCode(Messages.ERROR_CODE);
-                    responseBean.setDescription(Messages.error);
-                    responseBean.setObject(null);
                 }
-                responseBean.setCode(Messages.SUCCESS_CODE);
-                responseBean.setDescription("Attendance is Done Successfull");
-                responseBean.setObject("");
+                responseBean.setCode(200);
+                responseBean.setDescription("attendance saved successfully");
+            }else{
+                responseBean.setCode(404);
+                responseBean.setDescription("course attendance not found");
             }
-
         } catch (Exception e) {
             //TODO: handle exception
             e.printStackTrace();
@@ -76,69 +78,22 @@ public class AttendanceController {
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
     }
-     
 
-
-
-    public void makeUbsent(List<Attendance> attendances,Student_course s){
-          for(Attendance a: attendances){
-              if(a.getStudentCourse().getCourse().getId()==s.getCourse().getId()){
-                   a.setPresent(false);
-                 attendanceService.delete(a);
-              }
-          }
-    }
-
-
-
-
-    @RequestMapping(value = "", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> findAll(@RequestBody InnerAttendance a) {
+    @RequestMapping(value = "/courseattendance/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> findAll(@PathVariable String uuid) {
         ResponseBean responseBean = new ResponseBean();
-        //TODO: process POST request
         try {
-
-            responseBean.setCode(Messages.ERROR_CODE);
-            responseBean.setDescription(Messages.error);
-            responseBean.setObject(attendanceService.findAll());
-
-        } catch (Exception e) {
-            //TODO: handle exception
-            responseBean.setCode(Messages.ERROR_CODE);
-            responseBean.setDescription(Messages.error);
-            responseBean.setObject(null);
-        }
-        return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/attend/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> findByDate(@PathVariable("uuid") String uuid) {
-        ResponseBean responseBean = new ResponseBean();
-        //TODO: process POST request
-        try {
-            Course c=courseService.findByUuid(uuid);
-            if(c!=null){
-                  
-                    List<Attendance> att=new ArrayList<>();
-                     List<Attendance> ac=attendanceService.findByAttendanceDate(new Date());
-                    for(Attendance a: ac){
-                          if(a.getStudentCourse().getCourse().getId()==c.getId()){
-                               att.add(a);
-                          }
-                    }
-                    responseBean.setCode(Messages.SUCCESS_CODE);
-                    responseBean.setDescription("");
-                    responseBean.setObject(att);
-                   
+            Optional<CourseAttendance> c = courseAttendanceService.findByUuid(uuid);
+            if(c.isPresent()){
+                responseBean.setCode(200);
+                responseBean.setDescription("success");
+                responseBean.setObject(attService.findByCourseAttendanceId(c.get().getId()));
             }else{
-                    responseBean.setCode(Messages.ERROR_CODE);
-                    responseBean.setDescription(Messages.error);
-                    responseBean.setObject(null);
+                responseBean.setCode(404);
+                responseBean.setDescription("courseAttendance not found");
             }
-//            Date date = new Date();
-         
         } catch (Exception e) {
-            //TODO: handle exception
+            // TODO: handle exception
             responseBean.setCode(Messages.ERROR_CODE);
             responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
@@ -147,26 +102,4 @@ public class AttendanceController {
     }
 
 
-    private static  class InnerAttendance{
-        private String attendanceDate;
-        private List<String> attendanceInfo;
-
-        public String getAttendanceDate() {
-            return attendanceDate;
-        }
-
-        public void setAttendanceDate(String attendanceDate) {
-            this.attendanceDate = attendanceDate;
-        }
-
-        public List<String> getAttendanceInfo() {
-            return attendanceInfo;
-        }
-
-        public void setAttendanceInfo(List<String> attendanceInfo) {
-            this.attendanceInfo = attendanceInfo;
-        }
-    }
-
-   
 }

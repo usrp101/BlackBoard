@@ -16,7 +16,7 @@ import org.apache.catalina.User;
 public class Student_course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long Id;
+	private long id;
  
 	@Column(updatable = false)
 	private String uuid=UUID.randomUUID().toString();
@@ -36,19 +36,7 @@ public class Student_course {
         this.course = course;
     }
 
-    /**
-     * @return long return the Id
-     */
-    public long getId() {
-        return Id;
-    }
-
-    /**
-     * @param Id the Id to set
-     */
-    public void setId(long Id) {
-        this.Id = Id;
-    }
+    
 
     /**
      * @return String return the uuid
@@ -91,5 +79,13 @@ public class Student_course {
      public void setStudent(Student student) {
          this.student = student;
      }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
 }

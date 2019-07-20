@@ -17,14 +17,11 @@ public class Attendance {
 @Id
 @GeneratedValue(strategy =GenerationType.AUTO )
 private long id;
-    @Temporal(TemporalType.DATE)
-private Date attendanceDate;
 private Boolean present;
-
 @ManyToOne
 private Student_course studentCourse;
-
-
+@ManyToOne
+private CourseAttendance courseAttendance;
 
     /**
      * @return long return the id
@@ -33,25 +30,19 @@ private Student_course studentCourse;
         return id;
     }
 
+    public CourseAttendance getCourseAttendance() {
+        return courseAttendance;
+    }
+
+    public void setCourseAttendance(CourseAttendance courseAttendance) {
+        this.courseAttendance = courseAttendance;
+    }
+
     /**
      * @param id the id to set
      */
     public void setId(long id) {
         this.id = id;
-    }
-
-    /**
-     * @return Date return the attendanceDate
-     */
-    public Date getAttendanceDate() {
-        return attendanceDate;
-    }
-
-    /**
-     * @param attendanceDate the attendanceDate to set
-     */
-    public void setAttendanceDate(Date attendanceDate) {
-        this.attendanceDate = attendanceDate;
     }
 
     /**
