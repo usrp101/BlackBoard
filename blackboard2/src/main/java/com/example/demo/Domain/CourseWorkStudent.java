@@ -13,10 +13,28 @@ public class CourseWorkStudent {
     private long id;
 
     private String uuid= UUID.randomUUID().toString();
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
     @ManyToOne
     private Student student;
+
     @ManyToOne
     private CourseWork courseWork;
+
+    public CourseWork getCourseWork() {
+        return courseWork;
+    }
+
+    public void setCourseWork(CourseWork courseWork) {
+        this.courseWork = courseWork;
+    }
 
     private double marks;
 
@@ -55,21 +73,7 @@ public class CourseWorkStudent {
         this.id = id;
     }
 
-    public Student getStudent() {
-        return student;
-    }
 
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public CourseWork getCourseWork() {
-        return courseWork;
-    }
-
-    public void setCourseWork(CourseWork courseWork) {
-        courseWork = courseWork;
-    }
 
 
 }
