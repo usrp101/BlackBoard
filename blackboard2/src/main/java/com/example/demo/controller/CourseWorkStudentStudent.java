@@ -6,8 +6,10 @@ import com.example.demo.Dao.CourseWorkStudentDao;
 import com.example.demo.Domain.CourseWork;
 import com.example.demo.Domain.CourseWorkStudent;
 import com.example.demo.Domain.Student;
+import com.example.demo.Domain.Student_course;
 import com.example.demo.Service.CourseService;
 import com.example.demo.Service.StudentService;
+import com.example.demo.Service.Student_courseService;
 import com.example.demo.util.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,32 +30,29 @@ public class CourseWorkStudentStudent {
     private StudentService studentService;
     @Autowired
     private CourseWorkStudentDao cwsDao;
+    @Autowired
+    private Student_courseService studentCourseService;
 
 
     @PostMapping(value = "/create")
-    public ResponseEntity<Object> save(@RequestBody InnerCourseWorkStudent icwStudent){
+    public ResponseEntity<Object> save(@RequestBody List<InnerCourseWorkStudent> icwStudent){
         ResponseBean rs=new ResponseBean();
         try{
-          Student st=studentService.findByUuid(icwStudent.studentUuid);
-          CourseWork c=courseWorkDao.findByUuid(icwStudent.courseWorkUuid);
-            if(st!=null){
-                if(c!=null){
-                    CourseWorkStudent cws=new CourseWorkStudent();
+         
+         
+          for(InnerCourseWorkStudent cs: icwStudent){
+                CourseWork c = courseWorkDao.findByUuid(cs.courseWorkUuid);
+                Student_course st=studentCourseService.findByUuid(cs.studentUuid);
+                CourseWorkStudent cws=new CourseWorkStudent();
                     cws.setCourseWork(c);
-                    cws.setStudent(st);
-                    cws.setMarks(icwStudent.mark);
+                    cws.setStudent(st.getStudent());
+                    cws.setMarks(cs.getMark());
                     cwsDao.save(cws);
-                    rs.setDescription("STUDENT MARK WAS RECORDED SUCCESFULLY");
-                    rs.setCode(200);
-                    rs.setObject(cws);
-                }else{
-                    rs.setDescription("COURSE WORK NOT FOUND");
-                    rs.setCode(400);
-                }
-            }else{
-                rs.setDescription("STUDENT NOT FOUND");
-                rs.setCode(400);
-            }
+          }
+            rs.setDescription("STUDENT MARK WAS RECORDED SUCCESFULLY");
+            rs.setCode(200);
+            // rs.setObject(cws);
+          
       }catch (Exception ex){
 
             rs.setDescription("ERROR OCCURRED TRY AGAIN");
@@ -123,8 +122,8 @@ public class CourseWorkStudentStudent {
             CourseWork cw=courseWorkDao.findByUuid(uuid);
             if(cw!=null){
                 List<CourseWorkStudent> courseWorkStudents=cwsDao.findByCourseWorkId(cw.getId());
-                rs.setDescription(" NOT FOUND");
-                rs.setCode(400);
+                rs.setDescription(" FOUND");
+                rs.setCode(200);
                 rs.setObject(courseWorkStudents);
             }else{
                 rs.setDescription(" NOT FOUND");
@@ -142,9 +141,9 @@ public class CourseWorkStudentStudent {
 
 
 
-
+    
     public static class InnerCourseWorkStudent{
-
+      
         private String courseWorkUuid;
         private String studentUuid;
         private double mark;
