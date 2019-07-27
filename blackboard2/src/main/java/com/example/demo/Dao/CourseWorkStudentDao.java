@@ -17,5 +17,7 @@ public interface CourseWorkStudentDao extends JpaRepository<CourseWorkStudent,Lo
 
     public CourseWorkStudent findByUuid(String uuid);
 
+    public CourseWorkStudent findByCourseWorkIdAndStudentId(long id,long sid);
+
 
 }

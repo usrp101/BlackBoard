@@ -12,5 +12,7 @@ public interface Student_courseDao extends JpaRepository<Student_course, Long> {
      List<Student_course> findByCourseId(long id);
      Student_course findByUuid(String uuid);
      List<Student_course> findByStudentId(long id);
+    
+     
 
 }

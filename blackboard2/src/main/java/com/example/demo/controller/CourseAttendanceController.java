@@ -55,11 +55,11 @@ public class CourseAttendanceController {
     }
     
 
-    @GetMapping(value="/course/{id}")
-    public ResponseEntity<Object> findAllByCourseCode(@PathVariable Long id) {
+    @GetMapping(value="/course/{uuid}")
+    public ResponseEntity<Object> findAllByCourseCode(@PathVariable String uuid) {
         ResponseBean rs = new ResponseBean();
         try {
-            List<CourseAttendance> li = courseAttendanceService.findByCourseCourseCode(id);
+            List<CourseAttendance> li = courseAttendanceService.findByCourseUuid(uuid);
             rs.setCode(200);
             rs.setDescription("success");
             rs.setObject(li);
@@ -70,6 +70,8 @@ public class CourseAttendanceController {
         }
         return new ResponseEntity<>(rs,HttpStatus.OK);
     }
+
+
 
 
 }

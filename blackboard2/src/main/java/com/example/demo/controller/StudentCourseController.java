@@ -9,13 +9,20 @@ import com.example.demo.Service.StudentService;
 import com.example.demo.Service.Student_courseService;
 import com.example.demo.util.Messages;
 import com.example.demo.util.ResponseBean;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/studentcourses")
@@ -217,6 +224,31 @@ public class StudentCourseController {
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
     }
+
+     
+     @RequestMapping(value = "/{uuid}/report", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+     public ResponseEntity<Object> HarvestBatchDetailsReportForTeam(@PathVariable String uuid, HttpServletRequest request) {
+         ResponseBean responseBean = new ResponseBean();
+         try {
+            
+                 HttpHeaders headers = new HttpHeaders();
+                 headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+                 headers.add("Pragma", "no-cache");
+                 headers.add("Expires", "0");
+                 headers.add("Content-Disposition", "inline; filename=HarvestDetails.pdf");
+                 List<Student_course>students=studentCourseService.findByCourseId(courseService.findByUuid(uuid).getId());
+                 ByteArrayInputStream bis =new ByteArrayInputStream(studentCourseService.StudentsDetailsPDF(students));
+                 
+                 return ResponseEntity.ok().headers(headers).contentType(MediaType.parseMediaType("application/pdf"))
+                     .body(new InputStreamResource(bis));
+         
+         } catch (Exception ex) {
+             responseBean.setCode(Messages.ERROR_CODE);
+             responseBean.setDescription(Messages.error);
+             responseBean.setObject(null);
+         }
+         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
+     }
 
 
 
