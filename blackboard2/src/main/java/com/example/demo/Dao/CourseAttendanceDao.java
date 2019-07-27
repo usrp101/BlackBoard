@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface CourseAttendanceDao extends JpaRepository<CourseAttendance,Long> {
     
     List<CourseAttendance>findByCourseCourseCode(Long id);
-    Optional<CourseAttendance>findByUuid(String uuid);
+    Optional<CourseAttendance> findByUuid(String uuid);
     List<CourseAttendance> findByCourseUuid(String uuid);
 }

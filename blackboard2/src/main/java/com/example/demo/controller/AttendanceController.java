@@ -37,13 +37,13 @@ public class AttendanceController {
     private CourseAttendanceDao courseAttendanceService;
 
     @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> save(@RequestBody Map<String,Object> map) {
+    public ResponseEntity<Object> save(@RequestBody InnerAttend attend) {
         ResponseBean responseBean = new ResponseBean();
         //TODO: process POST request
         try {
-            Optional<CourseAttendance> c = courseAttendanceService.findByUuid(map.get("courseAttendanceUuid").toString());
+            Optional<CourseAttendance> c = courseAttendanceService.findByUuid(attend.courseAttend);
             if(c.isPresent()){
-                List<String> li = (List<String>) map.get("attendanceInfo");
+                List<String> li = attend.attend;
                 for(String s:li){
                     String scUuid = s.split("_")[0];
                     boolean present = Boolean.parseBoolean(s.split("_")[1]);
@@ -101,5 +101,28 @@ public class AttendanceController {
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
     }
 
+    public static class InnerAttend{
+        private List<String> attend;
+        private String courseAttend;
+
+        public List<String> getAttend() {
+            return attend;
+        }
+
+        public void setAttend(List<String> attend) {
+            this.attend = attend;
+        }
+
+        public String getCourseAttend() {
+            return courseAttend;
+        }
+
+        public void setCourseAttend(String courseAttend) {
+            this.courseAttend = courseAttend;
+        }
+    }
 
 }
+
+
+

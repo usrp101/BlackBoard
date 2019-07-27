@@ -4,11 +4,7 @@ package com.example.demo.Domain;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class CourseAttendance {
@@ -16,6 +12,7 @@ public class CourseAttendance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Temporal(TemporalType.DATE)
     private Date date;
     private String uuid = UUID.randomUUID().toString();
     @ManyToOne
