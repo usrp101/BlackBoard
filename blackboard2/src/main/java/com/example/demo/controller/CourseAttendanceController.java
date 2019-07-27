@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.example.demo.Dao.CourseAttendanceDao;
 import com.example.demo.Domain.Course;
@@ -30,14 +31,14 @@ public class CourseAttendanceController {
     @Autowired
     private CourseService courseService;
 
-    @PostMapping(value="/save")
-    public ResponseEntity<Object> create(@RequestBody Map<String,Object> map) {
+    @GetMapping(value="/save/{uuid}")
+    public ResponseEntity<Object> create(@PathVariable String uuid) {
         ResponseBean rs = new ResponseBean();
         try {
-            Course c = courseService.findByUuid(map.get("courseUuid").toString());
+            Course c = courseService.findByUuid(uuid);
             if(c!= null){
                 CourseAttendance catt = new CourseAttendance();
-                catt.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(map.get("date").toString()));
+                catt.setDate(new Date());
                 catt.setCourse(c);
                 courseAttendanceService.save(catt);
                 rs.setCode(200);
@@ -71,6 +72,22 @@ public class CourseAttendanceController {
         return new ResponseEntity<>(rs,HttpStatus.OK);
     }
 
+    @GetMapping(value="/{uuid}")
+    public ResponseEntity<Object> findaTTEND(@PathVariable String uuid){
+        ResponseBean rs = new ResponseBean();
+        try {
+            Optional<CourseAttendance> li = courseAttendanceService.findByUuid(uuid);
+            rs.setCode(200);
+            rs.setDescription("success");
+            rs.setObject(li);
+        } catch (Exception e) {
+            e.printStackTrace();
+            rs.setCode(300);
+            rs.setDescription("Error occured");
+        }
+        return new ResponseEntity<>(rs,HttpStatus.OK);
+
+    }
 
 
 
