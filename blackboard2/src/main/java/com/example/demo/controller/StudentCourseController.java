@@ -226,29 +226,30 @@ public class StudentCourseController {
     }
 
      
-     @RequestMapping(value = "/{uuid}/report", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-     public ResponseEntity<Object> HarvestBatchDetailsReportForTeam(@PathVariable String uuid, HttpServletRequest request) {
-         ResponseBean responseBean = new ResponseBean();
-         try {
-            
-                 HttpHeaders headers = new HttpHeaders();
-                 headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-                 headers.add("Pragma", "no-cache");
-                 headers.add("Expires", "0");
-                 headers.add("Content-Disposition", "inline; filename=HarvestDetails.pdf");
-                 List<Student_course>students=studentCourseService.findByCourseId(courseService.findByUuid(uuid).getId());
-                 ByteArrayInputStream bis =new ByteArrayInputStream(studentCourseService.StudentsDetailsPDF(students));
-                 
-                 return ResponseEntity.ok().headers(headers).contentType(MediaType.parseMediaType("application/pdf"))
-                     .body(new InputStreamResource(bis));
-         
-         } catch (Exception ex) {
-             responseBean.setCode(Messages.ERROR_CODE);
-             responseBean.setDescription(Messages.error);
-             responseBean.setObject(null);
-         }
-         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
-     }
+    @RequestMapping(value = "/{uuid}/report/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> HarvestBatchDetailsReportForTeam(@PathVariable String uuid,@PathVariable String name ,HttpServletRequest request) {
+        ResponseBean responseBean = new ResponseBean();
+        try {
+           
+                HttpHeaders headers = new HttpHeaders();
+                headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+                headers.add("Pragma", "no-cache");
+                headers.add("Expires", "0");
+                headers.add("Content-Disposition", "inline; filename=HarvestDetails.pdf");
+                List<Student_course>students=studentCourseService.findByCourseId(courseService.findByUuid(uuid).getId());
+                ByteArrayInputStream bis =new ByteArrayInputStream(studentCourseService.StudentsDetailsPDF(students, name));
+                
+                return ResponseEntity.ok().headers(headers).contentType(MediaType.parseMediaType("application/pdf"))
+                    .body(new InputStreamResource(bis));
+        
+        } catch (Exception ex) {
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
+            responseBean.setObject(null);
+        }
+        return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
+
+    }
 
 
 
