@@ -43,11 +43,18 @@ public class CourseWorkStudentStudent {
           for(InnerCourseWorkStudent cs: icwStudent){
                 CourseWork c = courseWorkDao.findByUuid(cs.courseWorkUuid);
                 Student_course st=studentCourseService.findByUuid(cs.studentUuid);
-                CourseWorkStudent cws=new CourseWorkStudent();
+                CourseWorkStudent courseWorkStudent=cwsDao.findByCourseWorkIdAndStudentId(c.getId(),st.getStudent().getId());
+                if(courseWorkStudent!=null){
+                   courseWorkStudent.setMarks(cs.mark);
+                   cwsDao.save(courseWorkStudent);
+                }else{
+                    CourseWorkStudent cws=new CourseWorkStudent();
                     cws.setCourseWork(c);
                     cws.setStudent(st.getStudent());
                     cws.setMarks(cs.getMark());
                     cwsDao.save(cws);
+                }
+
           }
             rs.setDescription("STUDENT MARK WAS RECORDED SUCCESFULLY");
             rs.setCode(200);
