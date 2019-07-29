@@ -11,10 +11,9 @@ public class CourseWork {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     private String uuid= UUID.randomUUID().toString();
-
     private String name;
+    private int outOf;
     @ManyToOne
     private Course course;
     @Enumerated(EnumType.STRING)
@@ -23,11 +22,18 @@ public class CourseWork {
     @Column(updatable = false)
     private Date doneAt = new Date();
 
-
     private String description;
 
     public String getDescription() {
         return description;
+    }
+
+    public int getOutOf() {
+        return outOf;
+    }
+
+    public void setOutOf(int outOf) {
+        this.outOf = outOf;
     }
 
     public void setDescription(String description) {
