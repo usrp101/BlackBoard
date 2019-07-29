@@ -75,7 +75,7 @@ public class Student_courseServiceImp implements Student_courseService {
 	}
 
 	@Override
-	public byte[] StudentsDetailsPDF(List<Student_course> scourse) {
+	public byte[] StudentsDetailsPDF(List<Student_course> scourse, String name) {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		try{
 			Document document = new Document(PageSize.A4);
@@ -150,8 +150,8 @@ public class Student_courseServiceImp implements Student_courseService {
 //		---------------Making Harvest information table-------------
 
 		
-		table1.addCell(createLabelCellDetails("FirstName:")).setBorderColor(BaseColor.BLACK);
-	    table1.addCell(createLabelCellDetails("Email")).setBorderColor(BaseColor.BLACK);
+		table1.addCell(createLabelCellDetails("Names:")).setBorderColor(BaseColor.BLACK);
+	    table1.addCell(createLabelCellDetails("Student ID")).setBorderColor(BaseColor.BLACK);
 	    table1.addCell(createLabelCellDetails("Marks")).setBorderColor(BaseColor.BLACK);
 	   
 	    
@@ -160,12 +160,15 @@ public class Student_courseServiceImp implements Student_courseService {
 	   
 	    //T-Data
 	    table1.addCell(createValueCell(" "+ha.getStudent().getFirstname()));
-	    table1.addCell(createValueCell(" "+ha.getStudent().getEmail()));
+	    table1.addCell(createValueCell(" "+ha.getStudent().getStudentId()));
 	    table1.addCell(createValueCell(" "+ha.getMarks()));
 	   
 	    }
 	    
-	    document.add(table1);
+		document.add(table1);
+		document.add(new Paragraph(" "));
+      document.add(new Paragraph("Printed by : "+name));
+
 		document.close();
 		//	document.add(table);
 			
