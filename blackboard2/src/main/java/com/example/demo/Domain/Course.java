@@ -24,12 +24,28 @@ public class Course {
 	   private String uuid=UUID.randomUUID().toString();
 	   private String courseName;
 	   private String courseGroup;
-
-	   private int teacherId;
-
+       private String academicyear;
+       private String semester;
+       private int teacherId;
 
     public int getTeacherId() {
         return teacherId;
+    }
+
+    public String getAcademicyear() {
+        return academicyear;
+    }
+
+    public void setAcademicyear(String academicyear) {
+        this.academicyear = academicyear;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
     }
 
     public void setTeacherId(int teacherId) {
