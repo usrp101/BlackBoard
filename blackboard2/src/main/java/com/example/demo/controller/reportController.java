@@ -51,17 +51,24 @@ public class reportController {
 
             List<Map<String,String>> result = new ArrayList<>();
             for(Student st : students){
+                double total = 0;
+                int cwsTotal = 0;
                 Map<String,String> map = new HashMap<>();
                 map.put("studentId", st.getStudentId()+"");
-                map.put("studentNames", st.getFirstname());
+                // map.put("studentNames", st.getFirstname());
                 for(CourseWork cw : works){
+                    cwsTotal+=cw.getOutOf();
                     Optional<CourseWorkStudent> cws = cwsDao.findByStudentIdAndCourseWorkId(st.getId(), cw.getId());
                     if(cws.isPresent()){
-                        map.put(cw.getName(), cws.get().getMarks()+"");
+                        total+=cws.get().getMarks();
+                        map.put(cw.getName()+" /"+cw.getOutOf(), cws.get().getMarks()+"");
                     }else{
-                        map.put(cw.getName(), "N/A");
+                        map.put(cw.getName()+" /"+cw.getOutOf(), "");
                     }
                 }
+                map.put("total /"+cwsTotal, total+"");
+                double grTotal = (total * 20)/cwsTotal;
+                map.put("grand total /20", Math.round(grTotal * 10) / 10.0+"");
                 result.add(map);
             }
             rs.setCode(200);

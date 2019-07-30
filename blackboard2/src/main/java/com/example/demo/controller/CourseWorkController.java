@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @RestController
@@ -36,6 +35,7 @@ public class CourseWorkController {
                 cw.setName(c.name);
                 cw.setWorkType(WorkType.valueOf(c.type));
                 cw.setDescription(c.description);
+                cw.setOutOf(c.getOutOf());
                 dao.save(cw);
                 rs.setCode(200);
                 rs.setObject(cw);
@@ -45,7 +45,6 @@ public class CourseWorkController {
                 rs.setDescription("COURSE NOT FOUND");
             }
         } catch (Exception e) {
-            // TODO: handle exception
             rs.setCode(300);
             rs.setDescription("Error Occured, try again");
         }
@@ -145,12 +144,21 @@ public class CourseWorkController {
     public  static class InnerCourse{
 
         private String name;
+        private int outOf;
         private String type;
         private String courseUuid;
         private String description;
 
         public String getDescription() {
             return description;
+        }
+
+        public int getOutOf() {
+            return outOf;
+        }
+
+        public void setOutOf(int outOf) {
+            this.outOf = outOf;
         }
 
         public void setDescription(String description) {

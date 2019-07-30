@@ -11,5 +11,5 @@ public interface Student_courseService {
 	List<Student_course> findAll();
 	List<Student_course> findByCourseId(long id);
 	Student_course findByUuid(String uuid);
-	public byte[] StudentsDetailsPDF(List<Student_course> scourse);
+	public byte[] StudentsDetailsPDF(List<Student_course> scourse, String name);
 }
