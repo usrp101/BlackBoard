@@ -2,12 +2,11 @@ package com.example.demo.controller;
 
 import com.example.demo.Dao.AttendanceDao;
 import com.example.demo.Dao.CourseAttendanceDao;
-import com.example.demo.Domain.Attendance;
-import com.example.demo.Domain.Course;
-import com.example.demo.Domain.CourseAttendance;
-import com.example.demo.Domain.Student_course;
+import com.example.demo.Dao.Student_courseDao;
+import com.example.demo.Domain.*;
 import com.example.demo.Service.AttendanceService;
 import com.example.demo.Service.CourseService;
+import com.example.demo.Service.StudentService;
 import com.example.demo.Service.Student_courseService;
 import com.example.demo.util.Messages;
 import com.example.demo.util.ResponseBean;
@@ -35,6 +34,12 @@ public class AttendanceController {
     private AttendanceDao attService;
     @Autowired
     private CourseAttendanceDao courseAttendanceService;
+    @Autowired
+    private StudentService studentService;
+     @Autowired
+    private CourseService courseService;
+    @Autowired
+    private Student_courseDao studentCourseDao;
 
     @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> save(@RequestBody InnerAttend attend) {
@@ -100,6 +105,49 @@ public class AttendanceController {
         }
         return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
     }
+
+
+
+    @RequestMapping(value = "/studentattend/studentid/{stid}/course/{cuuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> findStudentId(@PathVariable("stid") String stid,@PathVariable("cuuid")String uuid) {
+        ResponseBean responseBean = new ResponseBean();
+        try {
+            Student st=studentService.findByStudentId(stid);
+            Course c=courseService.findByUuid(uuid);
+            if(st!=null){
+               if(c!=null){
+                   Student_course stc=studentCourseDao.findByStudentIdAndCourseId(st.getId(),c.getId());
+                   if(stc!=null){
+                         List<Attendance> attendance=attService.findByStudentCourseId(stc.getId());
+                       responseBean.setCode(Messages.SUCCESS_CODE);
+                       responseBean.setDescription("FOUND");
+                       responseBean.setObject(attendance);
+                   }else{
+                       responseBean.setCode(Messages.ERROR_CODE);
+                       responseBean.setDescription("DATA NOT FOUND");
+                       responseBean.setObject(null);
+                   }
+//                   Attendance a=attendanceService.
+               }else{
+                   responseBean.setCode(Messages.ERROR_CODE);
+                   responseBean.setDescription("COURSE NOT FOUND");
+                   responseBean.setObject(null);
+               }
+            }else{
+                responseBean.setCode(Messages.ERROR_CODE);
+                responseBean.setDescription("STUDENT NOT FOUND");
+                responseBean.setObject(null);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            responseBean.setCode(Messages.ERROR_CODE);
+            responseBean.setDescription(Messages.error);
+            responseBean.setObject(null);
+        }
+        return new ResponseEntity<Object>(responseBean, HttpStatus.OK);
+    }
+
+
 
     public static class InnerAttend{
         private List<String> attend;
