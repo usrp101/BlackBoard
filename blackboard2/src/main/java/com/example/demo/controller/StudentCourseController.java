@@ -137,6 +137,7 @@ public class StudentCourseController {
             responseBean.setObject(studentCourseService.findByUuid(uuid));
 
         } catch (Exception e) {
+            e.printStackTrace();
             // TODO: handle exception
             responseBean.setCode(Messages.ERROR_CODE);
             responseBean.setDescription(Messages.error);
@@ -161,6 +162,7 @@ public class StudentCourseController {
             responseBean.setObject(studentCourseService.findAll());
 
         } catch (Exception e) {
+            e.printStackTrace();
             // TODO: handle exception
             responseBean.setCode(Messages.ERROR_CODE);
             responseBean.setDescription(Messages.error);
@@ -190,6 +192,7 @@ public class StudentCourseController {
 
         } catch (Exception e) {
             // TODO: handle exception
+            e.printStackTrace();
             responseBean.setCode(Messages.ERROR_CODE);
             responseBean.setDescription(Messages.error);
             responseBean.setObject(null);
@@ -218,6 +221,7 @@ public class StudentCourseController {
 
         } catch (Exception e) {
             // TODO: handle exception
+            e.printStackTrace();
             responseBean.setCode(Messages.ERROR_CODE);
             responseBean.setDescription(Messages.error);
             responseBean.setObject(null);

@@ -39,6 +39,8 @@ public class CourseController {
                    course.setCourseCode(c.courseCode);
                    course.setCourseGroup(c.courseGroup);
                    course.setCourseName(c.courseName);
+                   course.setAcademicyear(c.academicYear);
+                   course.setSemester(c.semester);
                    course.setTeacherId(c.teacher);
                    Course nc=courseService.create(course);
                        responseBean.setCode(Messages.SUCCESS_CODE);
@@ -206,9 +208,27 @@ public class CourseController {
         private String courseName;
         private String courseGroup;
         private int teacher;
+        private String academicYear;
+        private String semester;
 
         public String getCourseCode() {
             return courseCode;
+        }
+
+        public String getAcademicYear() {
+            return academicYear;
+        }
+
+        public void setAcademicYear(String academicYear) {
+            this.academicYear = academicYear;
+        }
+
+        public String getSemester() {
+            return semester;
+        }
+
+        public void setSemester(String semester) {
+            this.semester = semester;
         }
 
         public void setCourseCode(String courseCode) {

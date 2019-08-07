@@ -18,6 +18,7 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
@@ -82,6 +83,7 @@ public class Student_courseServiceImp implements Student_courseService {
 			PdfWriter writer = PdfWriter.getInstance(document, bos);
 			document.open();
 			
+		
 			
 			// create 4 column table
 			PdfPTable table = new PdfPTable(3);
@@ -96,12 +98,18 @@ public class Student_courseServiceImp implements Student_courseService {
 
 			// ----------------Table Header "Title"----------------
 			// font
-			Font font = new Font(FontFamily.HELVETICA, 14, Font.BOLD, BaseColor.BLACK);
+			Font font = new Font(FontFamily.TIMES_ROMAN, 16, Font.BOLD, BaseColor.BLACK);
 			Font font2 = new Font(FontFamily.HELVETICA, 9, Font.NORMAL, BaseColor.BLACK);
-			// create header cell
-			Chunk title=new Chunk("                                                         Course  Report",font);
-			//title.setUnderline(0.3f, -2f); //0.1 thick, -2 y-location
+		//	Font font4 = new Font(FontFamily.HELVETICA, 9, Font.NORMAL, BaseColor.BLACK);
 			
+			// create header cell
+			
+			//title.setUnderline(0.3f, -2f); //0.1 thick, -2 y-location
+			String filename = "/home/i/BlackBoard/BlackBoard_UM/src/main/resources/static/img/AUCA Logo.png";
+			Image image = Image.getInstance(filename);
+			image.scaleAbsolute(500, 100);
+			
+            document.add(image);
 			
 			Student_course h=new Student_course();
 
@@ -109,20 +117,20 @@ public class Student_courseServiceImp implements Student_courseService {
 				h=scourse.get(0);
 			}
 			
-			document.add(title);
+			//document.add(title);
 			
 			document.add(new Paragraph(" "));
 			
 			Chunk title1=new Chunk("                                                         "+h.getCourse().getCourseName(),font);
-			title.setUnderline(0.3f, -2f); //0.1 thick, -2 y-location
+			//title.setUnderline(0.3f, -2f); //0.1 thick, -2 y-location
 			
 			document.add(title1);
 
 			document.add(new Paragraph(" "));
 
-			Chunk title2=new Chunk("         DATE: "+new Date(),font2);
+			//Chunk title2=new Chunk("         DATE: "+new Date(),font2);
 			// title2.setUnderline(0.1f, -2f); //0.1 thick, -2 y-location
-			document.add(title2);
+			//document.add(title2);
 			
 			PdfPCell cell = new PdfPCell(new Phrase("Course Group:"+" "+h.getCourse().getCourseGroup(), font2));
 			PdfPCell cell2 = new PdfPCell(new Phrase("Course Code: "+h.getCourse().getCourseCode(), font2));
@@ -159,15 +167,19 @@ public class Student_courseServiceImp implements Student_courseService {
 	    for(Student_course ha:scourse) {
 	   
 	    //T-Data
-	    table1.addCell(createValueCell(" "+ha.getStudent().getFirstname()));
+		table1.addCell(createValueCell(" "+ha.getStudent().getFirstname()));
+		
 	    table1.addCell(createValueCell(" "+ha.getStudent().getStudentId()));
 	    table1.addCell(createValueCell(" "+ha.getMarks()));
 	   
 	    }
 	    
-		document.add(table1);
-		document.add(new Paragraph(" "));
-      document.add(new Paragraph("Printed by : "+name));
+		 document.add(table1);
+		 document.add(new Paragraph(" "));
+		 document.add(new Paragraph("Printed by : "+name ));
+		 document.add(new Paragraph("\n"));
+		 document.add(new Paragraph("Printed On : " + new Date()));
+	  
 
 		document.close();
 		//	document.add(table);

@@ -3,6 +3,8 @@ package com.example.demo.controller;
 
 import com.example.demo.Dao.CourseWorkDao;
 import com.example.demo.Dao.CourseWorkStudentDao;
+import com.example.demo.Dao.Student_courseDao;
+import com.example.demo.Domain.Course;
 import com.example.demo.Domain.CourseWork;
 import com.example.demo.Domain.CourseWorkStudent;
 import com.example.demo.Domain.Student;
@@ -32,6 +34,7 @@ public class CourseWorkStudentStudent {
     private CourseWorkStudentDao cwsDao;
     @Autowired
     private Student_courseService studentCourseService;
+
 
 
     @PostMapping(value = "/create")
@@ -120,6 +123,35 @@ public class CourseWorkStudentStudent {
         }
         return new ResponseEntity<>(rs, HttpStatus.OK);
     }
+
+
+//Find By Student Id
+    @GetMapping(value = "/student/studentid/{stid}/course/{cuuid}")
+    public ResponseEntity<Object> findByStudentId(@PathVariable("stid") String stid,@PathVariable("cuuid") String cuuid ){
+        ResponseBean rs=new ResponseBean();
+        try{
+            Student cws=studentService.findByStudentId(stid);
+            Course c=courseService.findByUuid(cuuid);
+            if(cws!=null){
+                List<CourseWorkStudent> courseWorkStudents=cwsDao.findByStudentIdAndCourseWorkCourseId(cws.getId(),c.getId());
+                rs.setDescription(" RECORDS FOUND");
+                rs.setCode(200);
+                rs.setObject(courseWorkStudents);
+            }else{
+                rs.setDescription(" NOT FOUND");
+                rs.setCode(400);
+            }
+        }catch (Exception ex){
+
+            rs.setDescription("ERROR OCCURRED TRY AGAIN");
+            rs.setCode(400);
+            ex.printStackTrace();
+
+        }
+        return new ResponseEntity<>(rs, HttpStatus.OK);
+    }
+
+
 
 
     @GetMapping(value = "/course/{uuid}")
