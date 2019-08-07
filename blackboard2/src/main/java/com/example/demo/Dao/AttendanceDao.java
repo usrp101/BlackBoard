@@ -17,5 +17,6 @@ public interface AttendanceDao extends JpaRepository<Attendance,Long > {
     List<Attendance> findByCourseAttendanceDate(Date dt);
     List<Attendance> findByCourseAttendanceId(Long id);
     Optional<Attendance> findByStudentCourseIdAndCourseAttendanceId(long l,long m);
+    Optional<Attendance> findByStudentCourseStudentIdAndCourseAttendanceId(long l,long m);
     List<Attendance> findByStudentCourseId(Long id);
 }

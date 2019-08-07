@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -6,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.example.demo.Dao.*;
+import com.example.demo.Domain.Attendance;
 import com.example.demo.Domain.Course;
 import com.example.demo.Domain.CourseAttendance;
 import com.example.demo.Domain.CourseWork;
@@ -22,7 +24,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 @RestController
 @RequestMapping("/report")
 public class reportController {
@@ -38,9 +39,10 @@ public class reportController {
     private CourseWorkStudentDao cwsDao;
     @Autowired
     private CourseAttendanceDao catDao;
+    @Autowired
+    private AttendanceDao attDao;
 
-
-    @GetMapping(value="/marks/course/{uuid}")
+    @GetMapping(value = "/marks/course/{uuid}")
     public ResponseEntity<Object> reportMarksByCourse(@PathVariable String uuid) {
         ResponseBean rs = new ResponseBean();
         try {
@@ -48,30 +50,30 @@ public class reportController {
             List<Student_course> scs = scDao.findByCourseId(course.getId());
             List<CourseWork> works = cwDao.findByCourseId(course.getId());
             List<Student> students = new ArrayList<>();
-            for(Student_course sc : scs){
+            for (Student_course sc : scs) {
                 students.add(sc.getStudent());
             }
 
-            List<Map<String,String>> result = new ArrayList<>();
-            for(Student st : students){
+            List<Map<String, String>> result = new ArrayList<>();
+            for (Student st : students) {
                 double total = 0;
                 int cwsTotal = 0;
-                Map<String,String> map = new HashMap<>();
-                map.put("studentId", st.getStudentId()+"");
+                Map<String, String> map = new HashMap<>();
+                map.put("studentId", st.getStudentId() + "");
                 // map.put("studentNames", st.getFirstname());
-                for(CourseWork cw : works){
-                    cwsTotal+=cw.getOutOf();
+                for (CourseWork cw : works) {
+                    cwsTotal += cw.getOutOf();
                     Optional<CourseWorkStudent> cws = cwsDao.findByStudentIdAndCourseWorkId(st.getId(), cw.getId());
-                    if(cws.isPresent()){
-                        total+=cws.get().getMarks();
-                        map.put(cw.getName()+" /"+cw.getOutOf(), cws.get().getMarks()+"");
-                    }else{
-                        map.put(cw.getName()+" /"+cw.getOutOf(), "");
+                    if (cws.isPresent()) {
+                        total += cws.get().getMarks();
+                        map.put(cw.getName() + " /" + cw.getOutOf(), cws.get().getMarks() + "");
+                    } else {
+                        map.put(cw.getName() + " /" + cw.getOutOf(), "");
                     }
                 }
-                map.put("total /"+cwsTotal, total+"");
-                double grTotal = (total * 20)/cwsTotal;
-                map.put("grand total /20", Math.round(grTotal * 10) / 10.0+"");
+                map.put("total /" + cwsTotal, total + "");
+                double grTotal = (total * 20) / cwsTotal;
+                map.put("grand total /20", Math.round(grTotal * 10) / 10.0 + "");
                 result.add(map);
             }
             rs.setCode(200);
@@ -82,10 +84,10 @@ public class reportController {
             rs.setCode(300);
             rs.setDescription("error occured");
         }
-        return new ResponseEntity<>(rs,HttpStatus.OK);
+        return new ResponseEntity<>(rs, HttpStatus.OK);
     }
 
-    @GetMapping(value="/attendance/course/{uuid}")
+    @GetMapping(value = "/attendance/course/{uuid}")
     public ResponseEntity<Object> reportAttendanceByCourse(@PathVariable String uuid) {
         ResponseBean rs = new ResponseBean();
         try {
@@ -93,27 +95,28 @@ public class reportController {
             List<Student_course> scs = scDao.findByCourseId(course.getId());
             List<CourseAttendance> catts = catDao.findByCourseUuid(uuid);
             List<Student> students = new ArrayList<>();
-            for(Student_course sc : scs){
+            for (Student_course sc : scs) {
                 students.add(sc.getStudent());
             }
 
-            List<Map<String,String>> result = new ArrayList<>();
-            for(Student st : students){
-                Map<String,String> map = new HashMap<>();
-                map.put("studentId", st.getStudentId()+"");
+            List<Map<String, String>> result = new ArrayList<>();
+            for (Student st : students) {
+                Map<String, String> map = new HashMap<>();
+                map.put("studentId", st.getStudentId() + "");
                 // map.put("studentNames", st.getFirstname());
-                for(CourseAttendance ca : catts){
-                    Optional<Course> cws = cwsDao.findByStudentIdAndCourseWorkId(st.getId(), cw.getId());
-                    if(cws.isPresent()){
-                        total+=cws.get().getMarks();
-                        map.put(cw.getName()+" /"+cw.getOutOf(), cws.get().getMarks()+"");
-                    }else{
-                        map.put(cw.getName()+" /"+cw.getOutOf(), "");
+                for (CourseAttendance ca : catts) {
+                    Optional<Attendance> at = attDao.findByStudentCourseStudentIdAndCourseAttendanceId(st.getId(),
+                            ca.getId());
+                    if (at.isPresent()) {
+                        if (at.get().isPresent())
+                            map.put(ca.getDate()+"", "1");
+                        else
+                            map.put(ca.getDate()+"", "0");
+                    } else {
+                        map.put(ca.getDate()+"", "0");
                     }
                 }
-                map.put("total /"+cwsTotal, total+"");
-                double grTotal = (total * 20)/cwsTotal;
-                map.put("grand total /20", Math.round(grTotal * 10) / 10.0+"");
+
                 result.add(map);
             }
             rs.setCode(200);
@@ -124,8 +127,7 @@ public class reportController {
             rs.setCode(300);
             rs.setDescription("error occured");
         }
-        return new ResponseEntity<>(rs,HttpStatus.OK);
+        return new ResponseEntity<>(rs, HttpStatus.OK);
     }
-    
 
 }
