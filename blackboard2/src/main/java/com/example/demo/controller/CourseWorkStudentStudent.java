@@ -4,6 +4,7 @@ package com.example.demo.controller;
 import com.example.demo.Dao.CourseWorkDao;
 import com.example.demo.Dao.CourseWorkStudentDao;
 import com.example.demo.Dao.Student_courseDao;
+import com.example.demo.Domain.Course;
 import com.example.demo.Domain.CourseWork;
 import com.example.demo.Domain.CourseWorkStudent;
 import com.example.demo.Domain.Student;
@@ -125,13 +126,14 @@ public class CourseWorkStudentStudent {
 
 
 //Find By Student Id
-    @GetMapping(value = "/student/studentid/{stid}")
-    public ResponseEntity<Object> findByStudentId(@PathVariable("stid") String stid ){
+    @GetMapping(value = "/student/studentid/{stid}/course/{cuuid}")
+    public ResponseEntity<Object> findByStudentId(@PathVariable("stid") String stid,@PathVariable("cuuid") String cuuid ){
         ResponseBean rs=new ResponseBean();
         try{
             Student cws=studentService.findByStudentId(stid);
+            Course c=courseService.findByUuid(cuuid);
             if(cws!=null){
-                List<CourseWorkStudent> courseWorkStudents=cwsDao.findByStudentId(cws.getId());
+                List<CourseWorkStudent> courseWorkStudents=cwsDao.findByStudentIdAndCourseWorkCourseId(cws.getId(),c.getId());
                 rs.setDescription(" RECORDS FOUND");
                 rs.setCode(200);
                 rs.setObject(courseWorkStudents);
