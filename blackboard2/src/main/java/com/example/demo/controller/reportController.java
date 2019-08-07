@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import com.example.demo.Dao.*;
 import com.example.demo.Domain.Course;
+import com.example.demo.Domain.CourseAttendance;
 import com.example.demo.Domain.CourseWork;
 import com.example.demo.Domain.CourseWorkStudent;
 import com.example.demo.Domain.Student;
@@ -35,6 +36,8 @@ public class reportController {
     private Student_courseDao scDao;
     @Autowired
     private CourseWorkStudentDao cwsDao;
+    @Autowired
+    private CourseAttendanceDao catDao;
 
 
     @GetMapping(value="/marks/course/{uuid}")
@@ -59,6 +62,48 @@ public class reportController {
                 for(CourseWork cw : works){
                     cwsTotal+=cw.getOutOf();
                     Optional<CourseWorkStudent> cws = cwsDao.findByStudentIdAndCourseWorkId(st.getId(), cw.getId());
+                    if(cws.isPresent()){
+                        total+=cws.get().getMarks();
+                        map.put(cw.getName()+" /"+cw.getOutOf(), cws.get().getMarks()+"");
+                    }else{
+                        map.put(cw.getName()+" /"+cw.getOutOf(), "");
+                    }
+                }
+                map.put("total /"+cwsTotal, total+"");
+                double grTotal = (total * 20)/cwsTotal;
+                map.put("grand total /20", Math.round(grTotal * 10) / 10.0+"");
+                result.add(map);
+            }
+            rs.setCode(200);
+            rs.setDescription("success");
+            rs.setObject(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            rs.setCode(300);
+            rs.setDescription("error occured");
+        }
+        return new ResponseEntity<>(rs,HttpStatus.OK);
+    }
+
+    @GetMapping(value="/attendance/course/{uuid}")
+    public ResponseEntity<Object> reportAttendanceByCourse(@PathVariable String uuid) {
+        ResponseBean rs = new ResponseBean();
+        try {
+            Course course = cDao.findByUuid(uuid);
+            List<Student_course> scs = scDao.findByCourseId(course.getId());
+            List<CourseAttendance> catts = catDao.findByCourseUuid(uuid);
+            List<Student> students = new ArrayList<>();
+            for(Student_course sc : scs){
+                students.add(sc.getStudent());
+            }
+
+            List<Map<String,String>> result = new ArrayList<>();
+            for(Student st : students){
+                Map<String,String> map = new HashMap<>();
+                map.put("studentId", st.getStudentId()+"");
+                // map.put("studentNames", st.getFirstname());
+                for(CourseAttendance ca : catts){
+                    Optional<Course> cws = cwsDao.findByStudentIdAndCourseWorkId(st.getId(), cw.getId());
                     if(cws.isPresent()){
                         total+=cws.get().getMarks();
                         map.put(cw.getName()+" /"+cw.getOutOf(), cws.get().getMarks()+"");
